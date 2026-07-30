@@ -54,6 +54,8 @@ export type OrderStatus =
 
 export type PaymentStatus = 'authorized' | 'captured' | 'refunded' | 'failed';
 
+export type PrepStatus = 'pending' | 'in_prep' | 'done';
+
 export interface Order {
   id: string;
   user_id: string;
@@ -67,6 +69,7 @@ export interface Order {
   pickup_window_end: string | null;
   payment_status: PaymentStatus | null;
   razorpay_order_id: string | null;
+  customer_note: string | null;
   total_amount: number;
   created_at: string;
   // Joined fields
@@ -81,6 +84,7 @@ export interface OrderItem {
   size: 'full' | 'half' | null;
   quantity: number;
   price_at_order: number;
+  prep_status: PrepStatus;
   // Joined
   menu_item?: MenuItem;
 }

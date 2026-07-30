@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
@@ -45,9 +45,10 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-// Protected route wrapper for vendors
+// Protected route wrapper for vendors — validates vendor_id from URL matches profile
 function VendorRoute({ children }: { children: React.ReactNode }) {
   const { user, profile, isLoading } = useAuth();
+  const { vendorId } = useParams<{ vendorId: string }>();
 
   if (isLoading) {
     return (
@@ -63,6 +64,15 @@ function VendorRoute({ children }: { children: React.ReactNode }) {
 
   if (profile?.role !== 'vendor_counter' && profile?.role !== 'vendor_kitchen') {
     return <Navigate to="/app" replace />;
+  }
+
+  // If URL has a vendorId param, verify it matches the user's assigned vendor
+  if (vendorId && profile?.vendor_id && vendorId !== profile.vendor_id) {
+    // Redirect to their correct vendor panel
+    const correctPath = profile.role === 'vendor_kitchen'
+      ? `/cafe/${profile.vendor_id}/kitchen`
+      : `/cafe/${profile.vendor_id}/counter`;
+    return <Navigate to={correctPath} replace />;
   }
 
   return <>{children}</>;

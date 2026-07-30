@@ -1,34 +1,47 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Monitor, ChefHat } from 'lucide-react';
+import { Monitor, ChefHat, LogOut } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function RoleSelect() {
   const navigate = useNavigate();
-  const { profile } = useAuth();
+  const { profile, signOut } = useAuth();
 
   if (!profile || !profile.vendor_id) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background px-6">
         <div className="text-center">
-          <p className="text-text-secondary">No vendor access. Please contact admin.</p>
+          <span className="text-4xl mb-4 block">🔒</span>
+          <p className="text-text-secondary mb-2">No vendor access configured.</p>
+          <p className="text-sm text-text-muted mb-6">Please contact the admin to link your account to a cafe.</p>
           <button
-            onClick={() => navigate('/auth')}
-            className="mt-4 text-primary font-semibold cursor-pointer"
+            onClick={() => { signOut(); navigate('/auth'); }}
+            className="text-primary font-semibold cursor-pointer hover:underline"
           >
-            Back to login
+            Sign out & return to login
           </button>
         </div>
       </div>
     );
   }
 
+  // Derive the correct route from the profile's role and vendor_id
+  const directRoute = profile.role === 'vendor_kitchen'
+    ? `/cafe/${profile.vendor_id}/kitchen`
+    : `/cafe/${profile.vendor_id}/counter`;
+
+  // If the profile has a specific role, skip this page and go directly
+  if (profile.role === 'vendor_kitchen') {
+    navigate(directRoute, { replace: true });
+    return null;
+  }
+
   const roles = [
     {
       key: 'counter',
       icon: Monitor,
-      title: 'Counter View',
-      desc: 'Manage incoming orders, update statuses, and interact with customers.',
+      title: 'Counter Panel',
+      desc: 'Manage incoming orders, toggle menu availability, handle payments.',
       color: '#F5A623',
       path: `/cafe/${profile.vendor_id}/counter`,
     },
@@ -36,7 +49,7 @@ export default function RoleSelect() {
       key: 'kitchen',
       icon: ChefHat,
       title: 'Kitchen Display',
-      desc: 'View orders to prepare, mark items as done.',
+      desc: 'View orders to prepare, mark items as done — big-screen optimized.',
       color: '#E87040',
       path: `/cafe/${profile.vendor_id}/kitchen`,
     },
@@ -54,7 +67,10 @@ export default function RoleSelect() {
           <h1 className="text-2xl font-bold font-display text-text-primary mt-2">
             VITe<span className="text-primary">Bites</span>
           </h1>
-          <p className="text-sm text-text-secondary mt-1">Choose your view</p>
+          <p className="text-sm text-text-secondary mt-1">Choose your panel</p>
+          <p className="text-xs text-text-muted mt-0.5">
+            Logged in as <strong>{profile.full_name || profile.email}</strong>
+          </p>
         </motion.div>
 
         <div className="space-y-4">
@@ -82,6 +98,20 @@ export default function RoleSelect() {
             </motion.button>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="mt-8 text-center"
+        >
+          <button
+            onClick={signOut}
+            className="flex items-center gap-2 text-sm text-text-muted hover:text-primary transition-colors cursor-pointer mx-auto"
+          >
+            <LogOut size={16} /> Sign Out
+          </button>
+        </motion.div>
       </div>
     </div>
   );
