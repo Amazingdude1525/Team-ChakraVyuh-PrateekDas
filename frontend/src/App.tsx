@@ -16,6 +16,8 @@ import Profile from './pages/app/Profile';
 import Search from './pages/app/Search';
 import Counter from './pages/cafe/Counter';
 import Kitchen from './pages/cafe/Kitchen';
+import QRGenerator from './pages/admin/QRGenerator';
+import QRLanding from './pages/app/QRLanding';
 
 // Layout
 import AppLayout from './components/layout/AppLayout';
@@ -84,6 +86,8 @@ function AppRoutes() {
       {/* Public routes */}
       <Route path="/" element={<Landing />} />
       <Route path="/auth" element={<Auth />} />
+      <Route path="/order" element={<QRLanding />} />
+      <Route path="/admin/qr" element={<QRGenerator />} />
 
       {/* Vendor role selection */}
       <Route

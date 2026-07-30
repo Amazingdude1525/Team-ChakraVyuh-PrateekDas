@@ -10,6 +10,8 @@ import Header from '../../components/layout/Header';
 import BottomNav from '../../components/layout/BottomNav';
 import CrowdBadge from '../../components/ui/CrowdBadge';
 import { useCart } from '../../contexts/CartContext';
+import AIStockQuery from '../../components/ai/AIStockQuery';
+import VoiceOrderButton from '../../components/ai/VoiceOrderButton';
 
 export default function VendorMenu() {
   const { vendorId } = useParams<{ vendorId: string }>();
@@ -135,24 +137,35 @@ export default function VendorMenu() {
           )}
         </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setVegOnly(!vegOnly)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-              vegOnly
-                ? 'bg-veg text-white'
-                : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
-            }`}
-          >
-            <div className="w-3 h-3 border-2 border-current rounded-sm flex items-center justify-center">
-              <div className="w-1.5 h-1.5 rounded-full bg-current" />
-            </div>
-            Veg Only
-          </button>
-          <span className="text-xs text-text-muted">
-            {filteredItems.length} item{filteredItems.length !== 1 ? 's' : ''}
-          </span>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setVegOnly(!vegOnly)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                vegOnly
+                  ? 'bg-veg text-white'
+                  : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
+              }`}
+            >
+              <div className="w-3 h-3 border-2 border-current rounded-sm flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full bg-current" />
+              </div>
+              Veg Only
+            </button>
+            <span className="text-xs text-text-muted">
+              {filteredItems.length} item{filteredItems.length !== 1 ? 's' : ''}
+            </span>
+          </div>
+
+          <VoiceOrderButton
+            items={items}
+            vendorId={vendor.id}
+            vendorName={vendor.name}
+          />
         </div>
+
+        {/* Natural Language AI Query */}
+        <AIStockQuery items={items} vendorName={vendor.name} />
       </div>
 
       {/* Category tabs */}

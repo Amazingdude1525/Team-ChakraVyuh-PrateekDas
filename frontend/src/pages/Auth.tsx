@@ -24,7 +24,13 @@ export default function Auth() {
     if (profile.role === 'vendor_counter' || profile.role === 'vendor_kitchen') {
       navigate('/select-role', { replace: true });
     } else {
-      navigate('/app', { replace: true });
+      const redirectVendor = sessionStorage.getItem('redirect_vendor_id');
+      if (redirectVendor) {
+        sessionStorage.removeItem('redirect_vendor_id');
+        navigate(`/app/vendor/${redirectVendor}`, { replace: true });
+      } else {
+        navigate('/app', { replace: true });
+      }
     }
   }
 

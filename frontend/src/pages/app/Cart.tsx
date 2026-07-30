@@ -86,6 +86,21 @@ export default function Cart() {
 
       const tokenNumber = generateTokenNumber(vendorName || '', count || 0);
 
+      // Agent L: Calculate 5-minute batch pickup window
+      const activeCount = count || 0;
+      const basePrepMinutes = 8 + (activeCount * 2);
+      const now = new Date();
+
+      // Round to nearest 5-minute slot
+      const pickupStart = new Date(now.getTime() + basePrepMinutes * 60 * 1000);
+      const remainderMinutes = pickupStart.getMinutes() % 5;
+      if (remainderMinutes !== 0) {
+        pickupStart.setMinutes(pickupStart.getMinutes() + (5 - remainderMinutes));
+      }
+      pickupStart.setSeconds(0, 0);
+
+      const pickupEnd = new Date(pickupStart.getTime() + 5 * 60 * 1000);
+
       // Create order
       const { data: order, error: orderError } = await supabase
         .from('orders')
@@ -94,6 +109,8 @@ export default function Cart() {
           vendor_id: vendorId!,
           status: 'placed',
           token_number: tokenNumber,
+          pickup_window_start: pickupStart.toISOString(),
+          pickup_window_end: pickupEnd.toISOString(),
           payment_status: paymentId ? 'authorized' : 'authorized',
           razorpay_order_id: paymentId || null,
           total_amount: Math.round(total),

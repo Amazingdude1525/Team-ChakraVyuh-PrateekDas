@@ -412,6 +412,11 @@ export default function Counter() {
                                   <Users size={10} /> Group
                                 </span>
                               )}
+                              {order.student_departed && (
+                                <span className="text-[10px] text-amber-700 bg-amber-100 px-2 py-0.5 rounded font-bold animate-pulse">
+                                  🚶 Student on the way
+                                </span>
+                              )}
                             </div>
                           </div>
                         </div>

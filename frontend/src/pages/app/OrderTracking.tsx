@@ -8,11 +8,14 @@ import StatusTracker from '../../components/order/StatusTracker';
 import TokenDisplay from '../../components/order/TokenDisplay';
 import VegIndicator from '../../components/ui/VegIndicator';
 import Spinner from '../../components/ui/Spinner';
+import ItemReviewButton from '../../components/review/ItemReviewButton';
+import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 
 export default function OrderTracking() {
   const { orderId } = useParams<{ orderId: string }>();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [order, setOrder] = useState<Order | null>(null);
   const [orderItems, setOrderItems] = useState<(OrderItem & { menu_item: MenuItem })[]>([]);
   const [vendorName, setVendorName] = useState('');
@@ -149,32 +152,59 @@ export default function OrderTracking() {
           <StatusTracker currentStatus={order.status} />
         </motion.div>
 
-        {/* Pickup info */}
+        {/* Pickup info & Heading Over button */}
         {(order.pickup_window_start || order.status === 'ready') && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-crowd-green/10 rounded-2xl p-4 flex items-center gap-3"
+            className="bg-crowd-green/10 rounded-2xl p-4 flex flex-col gap-3"
           >
-            <Clock size={20} className="text-crowd-green" />
-            <div>
-              <p className="font-semibold text-text-primary text-sm">
-                {order.status === 'ready' ? 'Ready for pickup!' : 'Estimated pickup'}
-              </p>
-              {order.pickup_window_start && (
-                <p className="text-xs text-text-secondary">
-                  {new Date(order.pickup_window_start).toLocaleTimeString('en-IN', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-                  {order.pickup_window_end && ` - ${new Date(order.pickup_window_end).toLocaleTimeString('en-IN', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}`}
+            <div className="flex items-center gap-3">
+              <Clock size={20} className="text-crowd-green flex-shrink-0" />
+              <div className="flex-1">
+                <p className="font-semibold text-text-primary text-sm">
+                  {order.status === 'ready' ? 'Ready for pickup!' : 'Estimated pickup window'}
                 </p>
-              )}
+                {order.pickup_window_start && (
+                  <p className="text-xs text-text-secondary font-medium">
+                    {new Date(order.pickup_window_start).toLocaleTimeString('en-IN', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                    {order.pickup_window_end && ` - ${new Date(order.pickup_window_end).toLocaleTimeString('en-IN', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}`}
+                  </p>
+                )}
+              </div>
             </div>
+
+            {/* Agent P: "Heading Over" Trigger */}
+            {['placed', 'preparing'].includes(order.status) && (
+              <button
+                onClick={async () => {
+                  const { error } = await supabase
+                    .from('orders')
+                    .update({ student_departed: true })
+                    .eq('id', order.id);
+
+                  if (!error) {
+                    setOrder(prev => prev ? { ...prev, student_departed: true } : null);
+                    toast.success("Notified cafe staff that you're on the way! 🚶");
+                  }
+                }}
+                disabled={order.student_departed}
+                className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                  order.student_departed
+                    ? 'bg-crowd-green/20 text-crowd-green cursor-default'
+                    : 'bg-primary text-white shadow-sm hover:bg-primary-dark'
+                }`}
+              >
+                {order.student_departed ? '🚶 Cafe Staff Notified (On The Way)' : "🚶 I'm heading to the canteen now"}
+              </button>
+            )}
           </motion.div>
         )}
 
@@ -202,9 +232,18 @@ export default function OrderTracking() {
                     {item.size} × {item.quantity}
                   </p>
                 </div>
-                <p className="text-sm font-semibold text-text-primary">
-                  ₹{Math.round(item.price_at_order * item.quantity)}
-                </p>
+                <div className="flex items-center gap-2">
+                  {order.status === 'completed' && user && item.menu_item_id && (
+                    <ItemReviewButton
+                      orderId={order.id}
+                      menuItemId={item.menu_item_id}
+                      userId={user.id}
+                    />
+                  )}
+                  <p className="text-sm font-semibold text-text-primary">
+                    ₹{Math.round(item.price_at_order * item.quantity)}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

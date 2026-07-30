@@ -274,10 +274,17 @@ export default function Kitchen() {
                     className={`rounded-2xl border-2 ${styles.border} ${styles.bg} ${styles.glow} p-4 flex flex-col`}
                   >
                     {/* Token + Timer */}
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-3xl font-black text-gray-800 tracking-tight">
-                        #{order.token_number || '—'}
-                      </span>
+                    <div className="flex items-center justify-between mb-3">
+                      <div>
+                        <span className="text-3xl font-black text-gray-800 tracking-tight">
+                          #{order.token_number || '—'}
+                        </span>
+                        {order.student_departed && (
+                          <div className="text-[10px] font-bold text-amber-700 bg-amber-200 px-2 py-0.5 rounded mt-0.5">
+                            🚶 On the way!
+                          </div>
+                        )}
+                      </div>
                       <ElapsedTimer createdAt={order.created_at} className={`text-xl ${styles.timer}`} />
                     </div>
 

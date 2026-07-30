@@ -70,6 +70,7 @@ export interface Order {
   payment_status: PaymentStatus | null;
   razorpay_order_id: string | null;
   customer_note: string | null;
+  student_departed?: boolean;
   total_amount: number;
   created_at: string;
   // Joined fields
