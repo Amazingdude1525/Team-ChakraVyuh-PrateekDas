@@ -101,12 +101,14 @@ export default function Auth() {
         >
           {/* Logo */}
           <div className="text-center mb-8">
-            <span className="text-4xl">🍽️</span>
-            <h1 className="text-2xl font-bold font-display text-text-primary mt-2">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary-dark mx-auto flex items-center justify-center text-3xl shadow-lg mb-3">
+              🍔
+            </div>
+            <h1 className="text-3xl font-black font-display text-text-primary tracking-tight">
               VITe<span className="text-primary">Bites</span>
             </h1>
-            <p className="text-sm text-text-secondary mt-1">
-              {step === 'vendor-login' ? 'Vendor Sign In' : 'Sign in with your VIT email'}
+            <p className="text-sm font-medium text-text-secondary mt-1">
+              {step === 'vendor-login' ? 'Cafe Vendor Portal' : 'Enter your VIT email to proceed'}
             </p>
           </div>
 
