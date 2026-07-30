@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+/* ============ DESIGN TOKENS ============ */
+@theme {
+  --color-primary: #F5A623;
+  --color-primary-dark: #D4891A;
+  --color-primary-light: #FFF3DC;
+  --color-primary-50: #FFF9F0;
+  --color-surface: #FFFFFF;
+  --color-background: #FFF9F0;
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #4A4A6A;
+  --color-text-muted: #9A9AB0;
+  --color-veg: #0F8A0F;
+  --color-nonveg: #E23744;
+  --color-crowd-green: #22C55E;
+  --color-crowd-yellow: #F59E0B;
+  --color-crowd-red: #EF4444;
+  --color-border: #E8E4DD;
+  --color-border-light: #F0ECE5;
+
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+}
+
+/* ============ BASE STYLES ============ */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: white;
+  }
+}
+
+/* ============ GLASSMORPHISM UTILITIES ============ */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .glass-subtle {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .gradient-warm {
+    background: linear-gradient(135deg, #FFF9F0 0%, #FFF3DC 50%, #FFE8B8 100%);
+  }
+
+  .gradient-hero {
+    background: linear-gradient(180deg, #FFF9F0 0%, #FFFFFF 100%);
+  }
+
+  .shadow-glass {
+    box-shadow: 0 8px 32px rgba(245, 166, 35, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .shadow-card {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06),
+                0 1px 4px rgba(0, 0, 0, 0.04);
+  }
+
+  .shadow-card-hover {
+    box-shadow: 0 12px 40px rgba(245, 166, 35, 0.15),
+                0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Veg / Non-veg indicator */
+  .veg-indicator {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--color-veg);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .veg-indicator::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-veg);
+  }
+
+  .nonveg-indicator {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--color-nonveg);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nonveg-indicator::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-nonveg);
+  }
+
+  /* Hide scrollbar but keep scrolling */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Shimmer loading effect */
+  .shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+}
