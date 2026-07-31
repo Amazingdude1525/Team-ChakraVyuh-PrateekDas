@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VITeBites — Interactive Hero Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#E23744;--red-dark:#C41E2E;--ink:#1C1C1C;--muted:#6B6B6B;--cream:#FDF6EE}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Lexend',system-ui,sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+  .wrap{position:relative;width:100%;max-width:1400px;margin:0 auto;padding:0 12px}
+
+  .drop{aspect-ratio:16/9;border:2.5px dashed #E0CDB4;border-radius:20px;background:#FFFBF5;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:30px;cursor:pointer;transition:all .25s}
+  .drop:hover,.drop.over{border-color:var(--red);background:#FFF5F5}
+  .drop h2{font-size:19px;font-weight:700}
+  .drop p{font-size:13.5px;color:var(--muted);max-width:430px;line-height:1.6;font-weight:300}
+  .drop .pick{background:var(--red);color:#fff;border:none;border-radius:9px;padding:11px 22px;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:.8px;cursor:pointer}
+
+  /* ---------- STAGE : 3D parallax rig ---------- */
+  .rig{perspective:1400px;perspective-origin:50% 45%}
+  .stage{position:relative;display:none;border-radius:20px;overflow:hidden;
+    transform-style:preserve-3d;box-shadow:0 24px 70px rgba(120,70,30,.20);
+    transition:transform .5s cubic-bezier(.22,1,.36,1)}
+  .stage.live{display:block}
+  .stage img.base{display:block;width:100%;height:auto;transform-origin:50% 60%;
+    transition:transform .8s cubic-bezier(.22,1,.36,1),filter .6s ease}
+  .stage.zoom img.base{transform:scale(1.10);filter:blur(3px) saturate(.85)}
+
+  .veil{position:absolute;inset:0;background:rgba(30,16,4,.42);opacity:0;
+    transition:opacity .55s ease;pointer-events:none;z-index:2}
+  .stage.zoom .veil{opacity:1}
+
+  /* ---------- HOTSPOTS ---------- */
+  .hot{position:absolute;border:none;background:none;padding:0;cursor:pointer;z-index:3;
+    transform-style:preserve-3d;
+    transition:transform .55s cubic-bezier(.22,1,.36,1),filter .55s ease}
+  .hot:hover,.hot:focus-visible{outline:none;z-index:8;
+    transform:translateY(-13px) scale(1.035) translateZ(40px);
+    filter:drop-shadow(0 24px 34px rgba(90,45,10,.42))}
+  .stage.hot-on .hot:not(:hover){filter:saturate(.55) brightness(.86);transform:scale(.985)}
+
+  /* brand-coloured arch that draws itself under the storefront */
+  .arch{position:absolute;left:6%;right:6%;bottom:-3px;height:3px;border-radius:3px;
+    background:currentColor;transform:scaleX(0);transform-origin:50%;
+    transition:transform .5s cubic-bezier(.22,1,.36,1);pointer-events:none}
+  .hot:hover .arch,.hot:focus-visible .arch{transform:scaleX(1)}
+  .corner{position:absolute;width:16px;height:16px;border:2.5px solid currentColor;opacity:0;
+    transition:opacity .4s ease,transform .4s ease;pointer-events:none}
+  .corner.tl{top:-4px;left:-4px;border-right:none;border-bottom:none;transform:translate(6px,6px)}
+  .corner.tr{top:-4px;right:-4px;border-left:none;border-bottom:none;transform:translate(-6px,6px)}
+  .corner.bl{bottom:-4px;left:-4px;border-right:none;border-top:none;transform:translate(6px,-6px)}
+  .corner.br{bottom:-4px;right:-4px;border-left:none;border-top:none;transform:translate(-6px,-6px)}
+  .hot:hover .corner,.hot:focus-visible .corner{opacity:.95;transform:translate(0,0)}
+
+  /* name chip — sits WELL ABOVE the signage so it never covers it */
+  .chip{position:absolute;left:50%;top:0;white-space:nowrap;background:#fff;border-radius:30px;
+    padding:8px 15px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(0,0,0,.28);
+    opacity:0;transform:translate(-50%,-115%) scale(.9);pointer-events:none;
+    transition:all .4s cubic-bezier(.22,1,.36,1)}
+  .hot:hover .chip,.hot:focus-visible .chip{opacity:1;transform:translate(-50%,-165%) scale(1)}
+  .chip b{font-size:13px;font-weight:700;color:var(--ink);display:block}
+  .chip s{font-size:10.5px;color:var(--muted);text-decoration:none;font-weight:400;display:block}
+  .chip .go{width:23px;height:23px;border-radius:50%;background:currentColor;display:grid;place-items:center;flex:none}
+  .chip::after{content:'';position:absolute;left:50%;bottom:-6px;width:12px;height:12px;
+    background:#fff;transform:translateX(-50%) rotate(45deg)}
+
+  /* beacon parked on the pavement, never on the signboard */
+  .beacon{position:absolute;left:50%;bottom:4%;width:11px;height:11px;margin-left:-5.5px;
+    border-radius:50%;background:currentColor;pointer-events:none;transition:opacity .3s;
+    animation:ping 2.4s ease-out infinite}
+  .hot:hover .beacon{opacity:0}
+  @keyframes ping{0%{box-shadow:0 0 0 0 currentColor}70%{box-shadow:0 0 0 15px transparent}100%{box-shadow:0 0 0 0 transparent}}
+
+  /* ---------- CLICK ANIMATION ---------- */
+  .ripple{position:absolute;border-radius:50%;background:currentColor;opacity:.55;
+    transform:translate(-50%,-50%) scale(0);pointer-events:none;z-index:9;
+    animation:ripple .75s cubic-bezier(.22,1,.36,1) forwards}
+  @keyframes ripple{to{transform:translate(-50%,-50%) scale(22);opacity:0}}
+
+  /* shutter rolls up, then the storefront flies at the camera */
+  .shutter{position:absolute;inset:0;background:currentColor;transform:scaleY(0);
+    transform-origin:bottom;pointer-events:none;z-index:7;border-radius:8px}
+  .hot.picked .shutter{animation:shutter .62s cubic-bezier(.6,0,.3,1) forwards}
+  @keyframes shutter{0%{transform:scaleY(0);opacity:.9}45%{transform:scaleY(1);opacity:.9}100%{transform:scaleY(1);opacity:0}}
+  .hot.picked{animation:pick .78s cubic-bezier(.5,0,.2,1) forwards;z-index:9}
+  @keyframes pick{
+    0%{transform:translateY(-13px) scale(1.035) translateZ(40px)}
+    22%{transform:translateY(4px) scale(.965) translateZ(0)}
+    100%{transform:translateY(-52px) scale(1.7) translateZ(220px);opacity:0}}
+
+  /* ---------- DOODLES : locked to safe bands ---------- */
+  .doodles{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+  .dd{position:absolute;will-change:transform;opacity:.82}
+  @keyframes sway{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-16px) rotate(4deg)}}
+  @keyframes cloudx{0%{transform:translateX(-10px)}100%{transform:translateX(110px)}}
+  @keyframes twinkle{0%,100%{opacity:.2;transform:scale(.75)}50%{opacity:.9;transform:scale(1.1)}}
+  @keyframes orbit{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(10px,-14px) rotate(6deg)}100%{transform:translate(0,0) rotate(0)}}
+  .kite{animation:sway 6.5s ease-in-out infinite}
+  .cloud{animation:cloudx 30s ease-in-out infinite alternate}
+  .spark{animation:twinkle 3.2s ease-in-out infinite;color:#E8A33D}
+  .tag{font-weight:800;font-size:clamp(12px,1.25vw,20px);animation:orbit 8s ease-in-out infinite;
+    text-shadow:0 2px 10px rgba(255,250,240,.9)}
+
+  /* ---------- scroll parallax proof ---------- */
+  .below{max-width:1000px;margin:0 auto;padding:90px 20px 120px;text-align:center}
+  .below h2{font-size:clamp(26px,3.4vw,42px);font-weight:800;letter-spacing:-1px;margin-bottom:12px}
+  .below p{color:var(--muted);font-weight:300;font-size:15px;max-width:520px;margin:0 auto 40px;line-height:1.7}
+  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+  .tile{background:#fff;border:1px solid #F0E6D8;border-radius:16px;padding:22px 18px;text-align:left;
+    box-shadow:0 6px 20px rgba(120,70,30,.07)}
+  .tile b{display:block;font-size:14.5px;font-weight:700;margin-bottom:5px}
+  .tile span{font-size:12px;color:var(--muted);line-height:1.5;font-weight:300}
+
+  .tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 2px;font-size:13px;color:var(--muted)}
+  .tools button{background:#fff;border:1.5px solid #E6DACA;border-radius:8px;padding:8px 14px;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--ink)}
+  .tools button:hover{border-color:var(--red);color:var(--red)}
+  .stage.calib .hot{outline:2px dashed rgba(226,55,68,.85);background:rgba(226,55,68,.10)}
+  .stage.calib .hot::after{content:attr(data-label);position:absolute;left:4px;top:4px;font-size:10px;font-weight:700;color:#fff;background:var(--red);padding:2px 6px;border-radius:4px}
+  #coords{font-family:ui-monospace,monospace;font-size:11px;background:#fff;border:1px solid #EEE3D4;border-radius:8px;padding:10px;white-space:pre;overflow:auto;display:none;margin-top:10px;line-height:1.6}
+  #coords.show{display:block}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="drop" id="drop">
+    <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#E23744" stroke-width="1.4">
+      <rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="m3 16 5-4 4 3 3-2 6 5"/></svg>
+    <h2>Drop your landing render here</h2>
+    <p>The 1280×720 image with the VIT Bhopal building and the four storefronts. Drag it in, or click to pick it.</p>
+    <button class="pick" type="button">Choose image</button>
+    <input type="file" id="file" accept="image/*" hidden>
+  </div>
+
+  <div class="rig">
+    <div class="stage" id="stage">
+      <img class="base" id="base" alt="VITeBites campus street">
+      <div class="veil"></div>
+      <div class="doodles" id="doodles"></div>
+    </div>
+  </div>
+
+  <div class="tools" id="tools" style="display:none">
+    <button id="calibBtn">Show hotspots</button>
+    <button id="dragBtn">Adjust positions</button>
+    <button id="exportBtn">Export coordinates</button>
+    <span id="hint">Hover a cafe, then click it. Move your mouse across the scene, and scroll.</span>
+  </div>
+  <pre id="coords"></pre>
+</div>
+
+<section class="below">
+  <h2>Four counters. One queue you never join.</h2>
+  <p>Scroll and the street drifts against the doodles at different rates — that's the depth, on a single flat render.</p>
+  <div class="row">
+    <div class="tile"><b>Skip the queue</b><span>Order from class, collect at your slot.</span></div>
+    <div class="tile"><b>Live availability</b><span>Sold out shows before you pay, not after.</span></div>
+    <div class="tile"><b>Closing-hour deals</b><span>Flat 10% off surplus before shutters roll.</span></div>
+    <div class="tile"><b>VIT-only access</b><span>@vitbhopal.ac.in sign-in required.</span></div>
+  </div>
+</section>
+
+<script>
+const CAFES=[
+ {k:'underbelly',name:'UnderBelly',      loc:'Near AB-1 · Burgers & fries',      c:'#F26430', x:5.6, y:50.5,w:19.4,h:39.0},
+ {k:'mayuri',    name:"Mayuri's",        loc:'2 outlets · tap to choose',        c:'#D9312E', x:24.8,y:51.5,w:19.0,h:38.0},
+ {k:'dakshin',   name:"AB's Dakshin",    loc:'Special Block · South Indian',     c:'#1F7A3D', x:44.2,y:52.5,w:22.4,h:37.0},
+ {k:'bistro',    name:'Bistro by Safal', loc:'Special Block · Coffee & bakes',   c:'#B07A3C', x:67.0,y:52.0,w:26.4,h:37.5}
+];
+
+const stage=document.getElementById('stage'),drop=document.getElementById('drop'),
+      base=document.getElementById('base'),file=document.getElementById('file'),
+      tools=document.getElementById('tools'),doodles=document.getElementById('doodles');
+
+function buildHotspots(){
+  document.querySelectorAll('.hot').forEach(n=>n.remove());
+  CAFES.forEach(c=>{
+    const b=document.createElement('button');
+    b.className='hot'; b.dataset.k=c.k; b.dataset.label=c.name;
+    b.setAttribute('aria-label','Open '+c.name);
+    b.style.cssText=`left:${c.x}%;top:${c.y}%;width:${c.w}%;height:${c.h}%;color:${c.c}`;
+    b.innerHTML=`<span class="shutter"></span>
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <span class="arch"></span><span class="beacon"></span>
+      <span class="chip"><span><b>${c.name}</b><s>${c.loc}</s></span>
+        <span class="go"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>`;
+    b.addEventListener('mouseenter',()=>stage.classList.add('hot-on'));
+    b.addEventListener('mouseleave',()=>stage.classList.remove('hot-on'));
+    b.addEventListener('click',e=>{if(!dragging)pick(b,c,e)});
+    stage.appendChild(b);
+  });
+}
+
+function pick(el,c,e){
+  const r=el.getBoundingClientRect();
+  const rip=document.createElement('span');
+  rip.className='ripple';
+  rip.style.left=(e.clientX-r.left)+'px'; rip.style.top=(e.clientY-r.top)+'px';
+  rip.style.width=rip.style.height='40px';
+  el.appendChild(rip);
+  el.classList.add('picked');
+  stage.classList.add('zoom'); stage.classList.remove('hot-on');
+  setTimeout(()=>{
+    el.classList.remove('picked'); rip.remove(); stage.classList.remove('zoom');
+    alert(c.k==='mayuri'
+      ? 'Mayuri has two outlets → the AB-1 / Special Block picker opens here.'
+      : 'Navigating to the '+c.name+' menu.');
+  },820);
+}
+
+doodles.innerHTML=`
+ <svg class="dd cloud" style="left:3%;top:4%;width:10%" viewBox="0 0 120 46" fill="none" stroke="#CDBFA9" stroke-width="2.2" stroke-linecap="round"><path d="M8 38h96M18 38c-6-14 8-24 18-16 4-14 24-16 30-2 10-4 20 4 18 18"/></svg>
+ <svg class="dd cloud" style="left:40%;top:2%;width:8%;animation-delay:-11s" viewBox="0 0 120 46" fill="none" stroke="#CDBFA9" stroke-width="2.2" stroke-linecap="round"><path d="M8 38h96M18 38c-6-14 8-24 18-16 4-14 24-16 30-2 10-4 20 4 18 18"/></svg>
+ <svg class="dd cloud" style="right:4%;top:6%;width:9%;animation-delay:-20s" viewBox="0 0 120 46" fill="none" stroke="#CDBFA9" stroke-width="2.2" stroke-linecap="round"><path d="M8 38h96M18 38c-6-14 8-24 18-16 4-14 24-16 30-2 10-4 20 4 18 18"/></svg>
+ <svg class="dd kite" style="left:31%;top:8%;width:5%" viewBox="0 0 90 130" fill="none">
+   <path d="M45 4 78 40 45 92 12 40z" fill="#E23744" opacity=".92"/><path d="M45 4v88M12 40h66" stroke="#fff" stroke-width="2"/>
+   <path d="M45 92c8 10-8 14 0 24s-6 12-6 12" stroke="#CDBFA9" stroke-width="2" stroke-dasharray="4 5"/></svg>
+ <svg class="dd kite" style="right:8%;top:5%;width:4.4%;animation-delay:-3.4s" viewBox="0 0 90 130" fill="none">
+   <path d="M45 4 78 40 45 92 12 40z" fill="#F2A33C" opacity=".92"/><path d="M45 4v88M12 40h66" stroke="#fff" stroke-width="2"/>
+   <path d="M45 92c-8 10 8 14 0 24s6 12 6 12" stroke="#CDBFA9" stroke-width="2" stroke-dasharray="4 5"/></svg>
+ <span class="dd tag" style="left:52%;top:4%;color:#1F7A3D;transform:rotate(-8deg)">#freshlymade</span>
+ <span class="dd tag" style="right:14%;top:22%;color:#E23744;transform:rotate(7deg);animation-delay:-3s">#noqueues</span>
+ <span class="dd spark" style="left:24%;top:14%;font-size:17px">✦</span>
+ <span class="dd spark" style="left:63%;top:11%;font-size:13px;animation-delay:-1.2s">✦</span>
+ <span class="dd spark" style="right:22%;top:9%;font-size:15px;animation-delay:-2.1s">✦</span>`;
+
+function load(src){
+  base.src=src;
+  base.onload=()=>{drop.style.display='none';stage.classList.add('live');tools.style.display='flex';buildHotspots()};
+}
+drop.addEventListener('click',()=>file.click());
+file.addEventListener('change',e=>{const f=e.target.files[0];if(f)load(URL.createObjectURL(f))});
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over')}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)load(URL.createObjectURL(f))});
+fetch('../public/hero-street.png',{method:'HEAD'}).then(r=>{if(r.ok)load('../public/hero-street.png')}).catch(()=>{});
+
+/* ---- mouse: 3D tilt on the whole plate + counter-drift on doodles ---- */
+let tx=0,ty=0,cx=0,cy=0;
+stage.addEventListener('mousemove',e=>{
+  const r=stage.getBoundingClientRect();
+  tx=(e.clientX-r.left)/r.width-.5; ty=(e.clientY-r.top)/r.height-.5;
+});
+stage.addEventListener('mouseleave',()=>{tx=0;ty=0});
+(function frame(){
+  cx+=(tx-cx)*.07; cy+=(ty-cy)*.07;
+  stage.style.transform=`rotateY(${cx*5.5}deg) rotateX(${-cy*3.4}deg)`;
+  [...doodles.children].forEach((d,i)=>{const dep=((i%4)+1)*11;
+    d.style.marginLeft=`${-cx*dep}px`; d.style.marginTop=`${-cy*dep*.6}px`});
+  requestAnimationFrame(frame);
+})();
+
+/* ---- scroll: image, doodles and copy move at different rates ---- */
+addEventListener('scroll',()=>{
+  const s=scrollY;
+  base.style.marginTop=`${s*.16}px`;
+  doodles.style.marginTop=`${-s*.10}px`;
+  document.querySelectorAll('.tile').forEach((t,i)=>{
+    const d=(document.querySelector('.below').getBoundingClientRect().top);
+    t.style.transform=`translateY(${Math.max(0,Math.min(40,d*.10-i*4))}px)`;
+  });
+},{passive:true});
+
+/* ---- calibration ---- */
+let calib=false,dragging=false,active=null,mode=null,start=null;
+document.getElementById('calibBtn').onclick=e=>{calib=!calib;stage.classList.toggle('calib',calib);e.target.textContent=calib?'Hide hotspots':'Show hotspots'};
+document.getElementById('dragBtn').onclick=e=>{dragging=!dragging;
+  if(dragging&&!calib){calib=true;stage.classList.add('calib');document.getElementById('calibBtn').textContent='Hide hotspots'}
+  e.target.textContent=dragging?'Done adjusting':'Adjust positions';
+  document.getElementById('hint').textContent=dragging?'Drag a box to move it. Drag near its right or bottom edge to resize.':'Hover a cafe, then click it.'};
+stage.addEventListener('mousedown',e=>{
+  if(!dragging)return; const h=e.target.closest('.hot'); if(!h)return; e.preventDefault();
+  active=CAFES.find(c=>c.k===h.dataset.k); const r=h.getBoundingClientRect();
+  mode=(e.clientX>r.right-14||e.clientY>r.bottom-14)?'size':'move';
+  start={mx:e.clientX,my:e.clientY,x:active.x,y:active.y,w:active.w,h:active.h};
+});
+addEventListener('mousemove',e=>{
+  if(!active)return; const r=stage.getBoundingClientRect();
+  const dx=(e.clientX-start.mx)/r.width*100, dy=(e.clientY-start.my)/r.height*100;
+  if(mode==='move'){active.x=+(start.x+dx).toFixed(1);active.y=+(start.y+dy).toFixed(1)}
+  else{active.w=Math.max(4,+(start.w+dx).toFixed(1));active.h=Math.max(4,+(start.h+dy).toFixed(1))}
+  const el=stage.querySelector(`.hot[data-k="${active.k}"]`);
+  el.style.cssText=`left:${active.x}%;top:${active.y}%;width:${active.w}%;height:${active.h}%;color:${active.c}`;
+});
+addEventListener('mouseup',()=>{active=null});
+document.getElementById('exportBtn').onclick=()=>{
+  const out=document.getElementById('coords');
+  out.textContent='export const CAFE_HOTSPOTS = '+JSON.stringify(CAFES,null,2)+';';
+  out.classList.add('show');
+};
+</script>
+</body>
+</html>

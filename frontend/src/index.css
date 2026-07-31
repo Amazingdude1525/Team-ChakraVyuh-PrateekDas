@@ -1,33 +1,55 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+@import 'tailwindcss';
 
-/* ============ DESIGN TOKENS ============ */
+/* ============================================================
+   VITeBites design tokens
+   Warm ivory, saffron and terracotta — the palette of an Indian
+   campus cafe at golden hour. Deliberately no cold blues.
+   ============================================================ */
 @theme {
-  --color-primary: #F5A623;
-  --color-primary-dark: #D4891A;
-  --color-primary-light: #FFF3DC;
-  --color-primary-50: #FFF9F0;
-  --color-surface: #FFFFFF;
-  --color-background: #FFF9F0;
-  --color-text-primary: #1A1A2E;
-  --color-text-secondary: #4A4A6A;
-  --color-text-muted: #9A9AB0;
-  --color-veg: #0F8A0F;
-  --color-nonveg: #E23744;
-  --color-crowd-green: #22C55E;
-  --color-crowd-yellow: #F59E0B;
-  --color-crowd-red: #EF4444;
-  --color-border: #E8E4DD;
-  --color-border-light: #F0ECE5;
+  /* Surfaces */
+  --color-ivory: #fff9ef;
+  --color-cream: #fffdf7;
+  --color-paper: #fdf6e8;
+  --color-sand: #f7ecd9;
 
-  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
-  --font-display: 'Playfair Display', Georgia, serif;
+  /* Ink */
+  --color-charcoal: #191714;
+  --color-ink: #191714;
+  --color-ink-muted: #6b6154;
+  --color-ink-soft: #948976;
+
+  /* Brand */
+  --color-saffron: #f3a712;
+  --color-saffron-deep: #d68f04;
+  --color-saffron-tint: #fdf0d2;
+  --color-terracotta: #d95d39;
+  --color-terracotta-tint: #fbe6df;
+  --color-wine: #a92f34;
+  --color-wine-tint: #f8e3e4;
+
+  /* Semantic */
+  --color-veg: #196b45;
+  --color-veg-tint: #e4f0ea;
+  --color-egg: #c8871c;
+  --color-nonveg: #a92f34;
+  --color-brass: #b08d4f;
+
+  /* Lines */
+  --color-beige: #e8dcc8;
+  --color-beige-soft: #f2e9da;
+
+  /* Type */
+  --font-sans: 'Lexend', system-ui, -apple-system, sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+
+  /* Radii — modest on controls, softer on cards */
+  --radius-card: 16px;
+  --radius-control: 10px;
 }
 
-/* ============ BASE STYLES ============ */
 @layer base {
   * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
   }
 
@@ -38,127 +60,261 @@
   }
 
   body {
+    margin: 0;
     font-family: var(--font-sans);
-    background-color: var(--color-background);
-    color: var(--color-text-primary);
+    background-color: var(--color-ivory);
+    color: var(--color-ink);
     min-height: 100vh;
+    /* Handmade-paper tooth: two very low-contrast speckle layers. */
+    background-image:
+      radial-gradient(circle at 20% 12%, rgba(243, 167, 18, 0.045) 0, transparent 42%),
+      radial-gradient(circle at 82% 78%, rgba(217, 93, 57, 0.038) 0, transparent 46%);
+    background-attachment: fixed;
     overflow-x: hidden;
   }
 
+  h1, h2, h3, h4 {
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  p { margin: 0; }
+
   ::selection {
-    background-color: var(--color-primary);
-    color: white;
+    background-color: var(--color-saffron);
+    color: #fff;
+  }
+
+  /* One consistent, high-contrast focus ring across the whole app. */
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  button { font-family: inherit; }
+
+  /* Reader-set larger text, toggled from the profile screen. */
+  html[data-large-text='true'] {
+    font-size: 18px;
   }
 }
 
-/* ============ GLASSMORPHISM UTILITIES ============ */
 @layer utilities {
-  .glass {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+  .font-display {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.015em;
   }
 
-  .glass-strong {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+  /* ---------- Warm glass (cream, never blue) ---------- */
+  .glass-warm {
+    background: rgba(255, 253, 247, 0.82);
+    backdrop-filter: blur(14px) saturate(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    border: 1px solid rgba(232, 220, 200, 0.85);
   }
 
-  .glass-subtle {
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+  .glass-solid {
+    background: rgba(255, 253, 247, 0.96);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--color-beige);
   }
 
-  .gradient-warm {
-    background: linear-gradient(135deg, #FFF9F0 0%, #FFF3DC 50%, #FFE8B8 100%);
+  /* ---------- Elevation: soft, warm-tinted, never grey ---------- */
+  .shadow-warm {
+    box-shadow:
+      0 1px 2px rgba(83, 62, 27, 0.05),
+      0 4px 14px rgba(83, 62, 27, 0.06);
   }
 
-  .gradient-hero {
-    background: linear-gradient(180deg, #FFF9F0 0%, #FFFFFF 100%);
+  .shadow-warm-lg {
+    box-shadow:
+      0 2px 6px rgba(83, 62, 27, 0.06),
+      0 14px 40px rgba(83, 62, 27, 0.1);
   }
 
-  .shadow-glass {
-    box-shadow: 0 8px 32px rgba(245, 166, 35, 0.08),
-                0 2px 8px rgba(0, 0, 0, 0.04);
+  .shadow-lift {
+    box-shadow:
+      0 3px 8px rgba(83, 62, 27, 0.08),
+      0 20px 52px rgba(166, 106, 26, 0.16);
   }
 
-  .shadow-card {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06),
-                0 1px 4px rgba(0, 0, 0, 0.04);
+  /* ---------- Brass rule: a hairline with a metallic falloff ---------- */
+  .brass-rule {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(176, 141, 79, 0.15) 12%,
+      rgba(176, 141, 79, 0.5) 50%,
+      rgba(176, 141, 79, 0.15) 88%,
+      transparent
+    );
   }
 
-  .shadow-card-hover {
-    box-shadow: 0 12px 40px rgba(245, 166, 35, 0.15),
-                0 4px 12px rgba(0, 0, 0, 0.06);
+  /* ---------- Jaali: the perforated lattice of a carved screen ---------- */
+  .jaali {
+    background-image:
+      repeating-linear-gradient(45deg, rgba(176, 141, 79, 0.16) 0 1px, transparent 1px 11px),
+      repeating-linear-gradient(-45deg, rgba(176, 141, 79, 0.16) 0 1px, transparent 1px 11px);
   }
 
-  .text-gradient {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .jaali-divider {
+    height: 14px;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(176, 141, 79, 0.22) 0 1px, transparent 1px 10px),
+      repeating-linear-gradient(-45deg, rgba(176, 141, 79, 0.22) 0 1px, transparent 1px 10px);
+    mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
   }
 
-  /* Veg / Non-veg indicator */
-  .veg-indicator {
-    width: 16px;
-    height: 16px;
-    border: 2px solid var(--color-veg);
-    border-radius: 2px;
-    display: flex;
+  /* Kolam dot-grid, used behind section headers */
+  .kolam-dots {
+    background-image: radial-gradient(circle at 50% 50%, rgba(243, 167, 18, 0.4) 1.3px, transparent 1.5px);
+    background-size: 20px 20px;
+  }
+
+  /* ---------- Arched frame, as over a cafe doorway ---------- */
+  .arch-top {
+    border-top-left-radius: 999px 200px;
+    border-top-right-radius: 999px 200px;
+  }
+
+  /* ---------- Veg / egg / non-veg markers (Indian convention) ---------- */
+  .diet-mark {
+    width: 15px;
+    height: 15px;
+    min-width: 15px;
+    border-width: 1.5px;
+    border-style: solid;
+    border-radius: 3px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
   }
 
-  .veg-indicator::after {
+  .diet-mark::after {
     content: '';
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    background-color: var(--color-veg);
+    background-color: currentColor;
   }
 
-  .nonveg-indicator {
-    width: 16px;
-    height: 16px;
-    border: 2px solid var(--color-nonveg);
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  /* Non-veg uses a triangle, matching current Indian packaging rules. */
+  .diet-mark-nonveg::after {
+    border-radius: 0;
+    width: 0;
+    height: 0;
+    background: transparent;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 7px solid currentColor;
   }
 
-  .nonveg-indicator::after {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: var(--color-nonveg);
-  }
-
-  /* Hide scrollbar but keep scrolling */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
+  /* ---------- Scrollbars ---------- */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
 
-  /* Shimmer loading effect */
+  .thin-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-beige);
+    border-radius: 99px;
+  }
+  .thin-scrollbar::-webkit-scrollbar-track { background: transparent; }
+
+  /* ---------- Skeleton shimmer, tinted warm ---------- */
   .shimmer {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background: linear-gradient(
+      90deg,
+      var(--color-sand) 25%,
+      var(--color-paper) 50%,
+      var(--color-sand) 75%
+    );
     background-size: 200% 100%;
-    animation: shimmer 1.5s ease-in-out infinite;
+    animation: shimmer 1.4s ease-in-out infinite;
   }
 
   @keyframes shimmer {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
+  }
+
+  /* ---------- Kitchen display: overdue ticket pulse ---------- */
+  @keyframes urgentPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(169, 47, 52, 0.34); }
+    50% { box-shadow: 0 0 0 12px rgba(169, 47, 52, 0); }
+  }
+  .pulse-urgent { animation: urgentPulse 2.1s ease-out infinite; }
+
+  /* ---------- Listening state on the assistant mic ---------- */
+  @keyframes listenRing {
+    0% { transform: scale(1); opacity: 0.55; }
+    100% { transform: scale(2.1); opacity: 0; }
+  }
+  .listen-ring { animation: listenRing 1.6s ease-out infinite; }
+
+  /* ---------- Landing scene: storefront lighting ---------- */
+
+  /* Pendant bulbs idle at a low ember and bloom when a facade is active. */
+  .pendant {
+    opacity: 0.32;
+    transition:
+      opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 520ms ease;
+    filter: blur(2px);
+  }
+  .storefront[data-active='true'] .pendant { opacity: 1; filter: blur(3.5px); }
+  /* Bulbs come up one after another rather than all at once. */
+  .storefront[data-active='true'] .pendant:nth-child(2) { transition-delay: 70ms; }
+  .storefront[data-active='true'] .pendant:nth-child(3) { transition-delay: 140ms; }
+  .storefront[data-active='true'] .pendant:nth-child(4) { transition-delay: 210ms; }
+  .storefront[data-active='true'] .pendant:nth-child(5) { transition-delay: 280ms; }
+
+  .window-warm {
+    transition: opacity 520ms ease;
+    opacity: 0.42;
+  }
+  .storefront[data-active='true'] .window-warm { opacity: 1; }
+
+  .sign-glow {
+    transition: filter 480ms ease, text-shadow 480ms ease;
+  }
+  .storefront[data-active='true'] .sign-glow {
+    text-shadow:
+      0 0 10px rgba(255, 221, 158, 0.75),
+      0 0 26px rgba(243, 167, 18, 0.4);
+  }
+
+  /* Warm light spilling from the doorway onto the pavement. */
+  .light-spill {
+    opacity: 0;
+    transition: opacity 560ms ease;
+  }
+  .storefront[data-active='true'] .light-spill { opacity: 1; }
+
+  .storefront {
+    cursor: pointer;
+    transition:
+      transform 560ms cubic-bezier(0.34, 1.4, 0.5, 1),
+      filter 480ms ease;
+  }
+  .storefront[data-active='true'] { transform: translateY(-14px); }
+  /* Neighbouring facades step back so the active one reads as lit. */
+  .storefront[data-dimmed='true'] { filter: saturate(0.55) brightness(0.9); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .storefront[data-active='true'] { transform: none; }
   }
 }

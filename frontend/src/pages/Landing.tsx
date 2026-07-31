@@ -1,208 +1,330 @@
+import { useState } from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Clock, MapPin, Zap, Shield, Star } from 'lucide-react';
+import {
+  ArrowRight,
+  Clock,
+  MapPin,
+  ShieldCheck,
+  Sparkles,
+  Timer,
+  QrCode,
+  Mic,
+  Users,
+  BadgePercent,
+  WifiOff,
+  ThumbsUp,
+} from 'lucide-react';
 import Button from '../components/ui/Button';
+import Modal from '../components/ui/Modal';
+import CafeStreetScene, { type CafeDef } from '../components/landing/CafeStreetScene';
 
-const vendors = [
-  { name: 'Mayuri (AB)', location: 'Academic Block', emoji: '🍛', color: '#F5A623' },
-  { name: 'Mayuri (SB)', location: 'Special Block', emoji: '🍜', color: '#E8913A' },
-  { name: 'UnderBelly (UB)', location: 'Near AB1', emoji: '🍔', color: '#E87040' },
-  { name: 'Dakshin', location: 'Special Block', emoji: '🥘', color: '#D4891A' },
-  { name: 'Bistro by Safal', location: 'Special Block', emoji: '☕', color: '#C47A1A' },
+/* Mayuri operates two outlets — clicking the storefront asks which one. */
+const MAYURI_OUTLETS = [
+  {
+    slug: 'mayuri-ab',
+    name: 'Mayuri (AB-1)',
+    blurb: 'Academic Block · quick bites between lectures',
+    hint: 'Samosa, kachori, chai',
+  },
+  {
+    slug: 'mayuri-sb',
+    name: 'Mayuri (Special Block)',
+    blurb: 'Special Block · full thali & gravy counter',
+    hint: 'Thali, paneer, tandoori',
+  },
 ];
 
-const features = [
-  { icon: Clock, title: 'Skip the Queue', desc: 'Pre-order from class. Walk in, grab, leave.' },
-  { icon: Zap, title: 'Real-time Tracking', desc: 'Know exactly when your food is ready.' },
-  { icon: MapPin, title: '5 Cafes, 1 App', desc: 'Every campus cafe in your pocket.' },
-  { icon: Shield, title: 'Secure Payments', desc: 'Razorpay-powered, totally safe.' },
+const PILLARS = [
+  {
+    icon: Clock,
+    title: 'Skip the Queue',
+    desc: 'Order between classes. Walk in, show your token, walk out.',
+  },
+  {
+    icon: Timer,
+    title: 'Timed Pickup Slots',
+    desc: 'A 5-minute window that spreads the rush instead of clumping it.',
+  },
+  {
+    icon: MapPin,
+    title: 'Five Cafes, One App',
+    desc: 'Every counter on campus, live availability, one cart.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'VIT-Only Access',
+    desc: 'Sign-in restricted to @vitbhopal.ac.in. Campus stays campus.',
+  },
+];
+
+const CAPABILITIES = [
+  { icon: Sparkles, label: 'Ask the menu', desc: 'AI answers portion & ingredient questions from real vendor data — never guesses.' },
+  { icon: Mic, label: 'Voice ordering', desc: 'Say it, confirm it, done. Never auto-adds without your nod.' },
+  { icon: QrCode, label: 'Scan at counter', desc: 'One scan drops you straight into that cafe’s menu.' },
+  { icon: ThumbsUp, label: 'Honest reviews', desc: 'Only orders you actually collected can be rated.' },
+  { icon: Users, label: 'Group cart', desc: 'One link, one ticket, everyone’s items itemised by name.' },
+  { icon: BadgePercent, label: 'Closing-hour deals', desc: 'Vendors flash 10% off surplus stock before shutters roll down.' },
+  { icon: WifiOff, label: 'Works offline', desc: 'Dead zone near AB-2? Queue the order, it syncs and confirms.' },
 ];
 
 export default function Landing() {
   const navigate = useNavigate();
+  const [outletPicker, setOutletPicker] = useState(false);
+
+  const handleCafeSelect = (cafe: CafeDef) => {
+    if (cafe.hasBranches) {
+      setOutletPicker(true);
+      return;
+    }
+    navigate(`/auth?cafe=${cafe.key}`);
+  };
 
   return (
-    <div className="min-h-screen gradient-hero overflow-hidden">
-      {/* Nav */}
+    <div className="min-h-screen bg-background">
+      {/* ============ NAV ============ */}
       <motion.nav
-        initial={{ y: -20, opacity: 0 }}
+        initial={{ y: -24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="flex items-center justify-between px-6 py-4 max-w-6xl mx-auto"
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="sticky top-3 z-50 mx-auto flex max-w-5xl items-center justify-between rounded-full glass-strong px-5 py-2.5 shadow-glass"
+        style={{ width: 'calc(100% - 1.5rem)' }}
       >
         <div className="flex items-center gap-2">
-          <span className="text-2xl">🍽️</span>
-          <span className="text-xl font-bold font-display text-text-primary">
+          <span className="grid h-8 w-8 place-items-center rounded-full bg-primary text-white">
+            <MapPin size={16} />
+          </span>
+          <span className="font-display text-lg font-bold tracking-tight text-text-primary">
             VITe<span className="text-primary">Bites</span>
           </span>
         </div>
+
+        <div className="hidden items-center gap-7 text-sm font-medium text-text-secondary md:flex">
+          <a href="#cafes" className="transition-colors hover:text-primary">Cafes</a>
+          <a href="#features" className="transition-colors hover:text-primary">Features</a>
+          <a href="#how" className="transition-colors hover:text-primary">How it works</a>
+        </div>
+
         <Button size="sm" onClick={() => navigate('/auth')}>
-          Sign In <ArrowRight size={16} />
+          Sign In <ArrowRight size={15} />
         </Button>
       </motion.nav>
 
-      {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 pt-12 pb-20 md:pt-20 md:pb-28">
-        <div className="text-center max-w-2xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+      {/* ============ HERO ============ */}
+      <section className="relative pt-10">
+        <div className="mx-auto max-w-5xl px-6 text-center">
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-6"
+            className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3.5 py-1.5 text-xs font-semibold text-primary-dark"
           >
-            <Star size={14} /> VIT Bhopal Exclusive
-          </motion.div>
+            <Sparkles size={13} /> Built for VIT Bhopal · Summer of CodeFest 2.0
+          </motion.span>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-4xl md:text-6xl font-black text-text-primary leading-tight mb-4"
+            transition={{ delay: 0.18 }}
+            className="mx-auto mt-5 max-w-3xl font-display text-[2.6rem] font-black leading-[1.05] tracking-tight text-text-primary sm:text-6xl"
           >
-            5 cafes. One app.{' '}
-            <span className="text-gradient">Zero queues.</span>
+            Campus food,
+            <br />
+            <span className="text-gradient">ready when you are.</span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-lg text-text-secondary mb-8 max-w-lg mx-auto"
+            transition={{ delay: 0.26 }}
+            className="mx-auto mt-4 max-w-xl text-base text-text-secondary sm:text-lg"
           >
-            Pre-order from any campus cafe, pay online, and walk straight to the counter.
-            No more waiting in lines between classes.
+            Order ahead from every cafe on campus, pay once, and collect at your
+            slot. No delivery, no waiting — just walk up to the counter and pick it up.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
+            transition={{ delay: 0.34 }}
+            className="mt-7 flex flex-col justify-center gap-3 sm:flex-row"
           >
             <Button size="lg" onClick={() => navigate('/auth')}>
-              Get Started <ArrowRight size={20} />
+              Start Ordering <ArrowRight size={19} />
             </Button>
-            <Button size="lg" variant="outline" onClick={() => {
-              document.getElementById('vendors')?.scrollIntoView({ behavior: 'smooth' });
-            }}>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => document.getElementById('cafes')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Explore Cafes
             </Button>
           </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mt-4 text-xs font-medium text-text-muted"
+          >
+            Hover a storefront below — the lights come on. Tap to step inside.
+          </motion.p>
         </div>
 
-        {/* Floating food emojis */}
-        <div className="relative mt-12 flex justify-center">
-          {['🍕', '🍔', '🥘', '☕', '🍛', '🧋', '🍟'].map((emoji, i) => (
-            <motion.span
-              key={i}
-              className="absolute text-3xl md:text-4xl"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{
-                opacity: [0, 1, 1, 0],
-                y: [-20, -60 - i * 15],
-                x: (i - 3) * 60,
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatDelay: 2,
-                delay: i * 0.4,
-              }}
+        {/* ============ THE PARALLAX STREET ============ */}
+        <div id="cafes" className="mt-6 scroll-mt-24">
+          <CafeStreetScene onSelect={handleCafeSelect} />
+        </div>
+      </section>
+
+      {/* ============ PILLARS STRIP ============ */}
+      <section className="relative z-40 -mt-10 px-4">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-px overflow-hidden rounded-3xl glass-strong shadow-glass lg:grid-cols-4">
+          {PILLARS.map((f, i) => (
+            <motion.div
+              key={f.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="flex flex-col gap-2 px-5 py-6"
             >
-              {emoji}
-            </motion.span>
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary/12 text-primary">
+                <f.icon size={18} />
+              </span>
+              <h3 className="text-sm font-bold text-text-primary">{f.title}</h3>
+              <p className="text-xs leading-relaxed text-text-secondary">{f.desc}</p>
+            </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Vendor cards */}
-      <section id="vendors" className="py-16 px-6 bg-white/50">
-        <div className="max-w-5xl mx-auto">
+      <div className="kolam-divider mx-auto my-16 h-[22px] max-w-3xl opacity-70" aria-hidden="true" />
+
+      {/* ============ CAPABILITIES ============ */}
+      <section id="features" className="scroll-mt-24 px-6 pb-20">
+        <div className="mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-center mb-10"
+            className="mb-10 text-center"
           >
-            <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-2">
-              Campus Cafes
+            <h2 className="font-display text-3xl font-bold text-text-primary sm:text-4xl">
+              More than a menu
             </h2>
-            <p className="text-text-secondary">All your favorite spots, one tap away</p>
+            <p className="mt-2 text-text-secondary">
+              Everything a campus canteen actually needs — and a few things it didn’t know it did.
+            </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {vendors.map((vendor, i) => (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {CAPABILITIES.map((c, i) => (
               <motion.div
-                key={vendor.name}
-                initial={{ opacity: 0, y: 30 }}
+                key={c.label}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ delay: (i % 3) * 0.08 }}
+                whileHover={{ y: -5 }}
+                className="glass rounded-2xl p-5 shadow-card transition-shadow hover:shadow-card-hover"
+              >
+                <span className="mb-3 grid h-10 w-10 place-items-center rounded-xl bg-primary/12 text-primary">
+                  <c.icon size={19} />
+                </span>
+                <h3 className="mb-1 font-bold text-text-primary">{c.label}</h3>
+                <p className="text-sm leading-relaxed text-text-secondary">{c.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ HOW IT WORKS ============ */}
+      <section id="how" className="scroll-mt-24 gradient-warm px-6 py-20">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-12 text-center font-display text-3xl font-bold text-text-primary sm:text-4xl">
+            Four taps to lunch
+          </h2>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ['Sign in', 'Your @vitbhopal.ac.in ID, nothing else.'],
+              ['Pick a cafe', 'Live availability, veg/non-veg, real portion sizes.'],
+              ['Pay once', 'Secure checkout. Sold out? You’re not charged.'],
+              ['Collect', 'Token + pickup window. Kitchen already knows you’re coming.'],
+            ].map(([title, desc], i) => (
+              <motion.div
+                key={title}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                whileHover={{ y: -6, scale: 1.03 }}
-                className="glass rounded-2xl p-5 text-center cursor-pointer shadow-card hover:shadow-card-hover transition-shadow"
-                onClick={() => navigate('/auth')}
+                className="relative"
               >
-                <div
-                  className="w-14 h-14 rounded-2xl mx-auto mb-3 flex items-center justify-center text-2xl"
-                  style={{ backgroundColor: vendor.color + '15' }}
-                >
-                  {vendor.emoji}
-                </div>
-                <h3 className="font-bold text-sm text-text-primary mb-0.5">{vendor.name}</h3>
-                <p className="text-[11px] text-text-muted flex items-center justify-center gap-1">
-                  <MapPin size={10} /> {vendor.location}
-                </p>
+                <span className="mb-3 block font-display text-4xl font-black text-primary/35">
+                  0{i + 1}
+                </span>
+                <h3 className="mb-1 font-bold text-text-primary">{title}</h3>
+                <p className="text-sm leading-relaxed text-text-secondary">{desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-10"
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-2">
-              Why VITeBites?
-            </h2>
-            <p className="text-text-secondary">Built by students, for students</p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {features.map((feature, i) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="glass rounded-2xl p-6 flex gap-4 items-start"
-              >
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <feature.icon size={20} className="text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-text-primary mb-1">{feature.title}</h3>
-                  <p className="text-sm text-text-secondary">{feature.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 px-6 border-t border-border-light">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm text-text-muted">
-            Made with ❤️ at VIT Bhopal • Summer of CodeFest 2.0
+      {/* ============ CTA ============ */}
+      <section className="px-6 py-20 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="mx-auto max-w-3xl rounded-3xl glass-strong px-8 py-14 shadow-glass"
+        >
+          <h2 className="font-display text-3xl font-bold text-text-primary sm:text-4xl">
+            The queue starts in 40 minutes.
+          </h2>
+          <p className="mx-auto mt-3 max-w-md text-text-secondary">
+            Order now and it won’t be your problem.
           </p>
-        </div>
+          <div className="mt-7 flex justify-center">
+            <Button size="lg" onClick={() => navigate('/auth')}>
+              Sign in with VIT email <ArrowRight size={19} />
+            </Button>
+          </div>
+        </motion.div>
+      </section>
+
+      <footer className="border-t border-border-light px-6 py-8 text-center">
+        <p className="text-sm text-text-muted">
+          VITeBites · Made at VIT Bhopal · Pickup only, no delivery
+        </p>
       </footer>
+
+      {/* ============ MAYURI OUTLET PICKER ============ */}
+      <Modal isOpen={outletPicker} onClose={() => setOutletPicker(false)} title="Mayuri’s — two outlets">
+        <p className="mb-4 text-sm text-text-secondary">
+          Mayuri runs two counters on campus with different menus. Which one are you heading to?
+        </p>
+        <div className="space-y-3">
+          {MAYURI_OUTLETS.map((o) => (
+            <button
+              key={o.slug}
+              onClick={() => navigate(`/auth?cafe=${o.slug}`)}
+              className="group flex w-full items-center justify-between gap-4 rounded-2xl border border-border p-4 text-left transition-all hover:border-primary hover:bg-primary-50 hover:shadow-card-hover"
+            >
+              <span>
+                <span className="block font-bold text-text-primary">{o.name}</span>
+                <span className="block text-xs text-text-secondary">{o.blurb}</span>
+                <span className="mt-1 block text-[11px] font-medium text-primary-dark">{o.hint}</span>
+              </span>
+              <ArrowRight
+                size={18}
+                className="shrink-0 text-text-muted transition-all group-hover:translate-x-1 group-hover:text-primary"
+              />
+            </button>
+          ))}
+        </div>
+      </Modal>
     </div>
   );
 }

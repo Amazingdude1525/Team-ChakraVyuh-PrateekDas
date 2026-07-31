@@ -1,0 +1,2935 @@
+{
+ "_schema": {
+  "note": "Transcribed from vendor menu-board photographs, VIT Bhopal, July 2026.",
+  "fields": {
+   "n": "item name",
+   "p": "price in INR (single-size items)",
+   "sm": "small / half price",
+   "lg": "large / full price",
+   "t": "veg | nonveg | egg",
+   "pc": "pieces per serving, where the board states it",
+   "verify": "true = the board's price column was misaligned or unreadable; confirm with the vendor before going live"
+  },
+  "sizeSemantics": "If sm+lg are present the item MUST render a size selector. If only p is present it is a single-size item.",
+  "unresolved": [
+   "Bistro 'Sides' price column is offset by one row on the photograph; entries flagged verify.",
+   "UnderBelly 'Cold Beverages' Small/Large columns do not align row-for-row; entries flagged verify."
+  ]
+ },
+ "vendors": [
+  {
+   "id": "underbelly",
+   "name": "UnderBelly",
+   "location": "Near AB-1",
+   "tagline": "Good Food, Good Mood",
+   "brandColor": "#F26430",
+   "categories": [
+    {
+     "name": "South Indian",
+     "items": [
+      {
+       "n": "Ghee Sambar Idly",
+       "p": 70,
+       "t": "veg",
+       "pc": 3
+      },
+      {
+       "n": "Plain Dosa",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Masala Dosa",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Butter Masala Dosa",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Ghee Masala Dosa",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Chilly Cheese Masala Dosa",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Cheese Masala Dosa",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Kheema Dosa",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Onion Cheese Masala Dosa",
+       "p": 180,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Sandwich / Burger / Wrap",
+     "items": [
+      {
+       "n": "Veg Burger",
+       "p": 75,
+       "t": "veg"
+      },
+      {
+       "n": "Bombay Grilled Sandwich",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Chilli Cheese Sandwich",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Chutney Cheese Sandwich",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Double Cheese Sandwich",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Masala Sandwich",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Sweet Corn Sandwich",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Cheese Burger",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Wrap",
+       "p": 95,
+       "t": "veg"
+      },
+      {
+       "n": "Mint Mayo Cheese Wrap",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Chicken Burger",
+       "p": 110,
+       "t": "nonveg"
+      },
+      {
+       "n": "Veg Cheese Wrap",
+       "p": 110,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Cheese Burger",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Cheese Wrap",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Jungle Sandwich",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Tikka Sandwich",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Chicken Cheese Burger",
+       "p": 130,
+       "t": "nonveg"
+      },
+      {
+       "n": "Mushroom Cheese Sandwich",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Mushroom Cheese Wrap",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Cheese Mayo Grilled Chicken Sandwich",
+       "p": 140,
+       "t": "nonveg",
+       "verify": true
+      },
+      {
+       "n": "Chicken Cheese Mayo Wrap",
+       "p": 140,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Salami Sandwich",
+       "p": 140,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Tikka Sandwich",
+       "p": 140,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Tikka Wrap",
+       "p": 140,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Wrap",
+       "p": 140,
+       "t": "nonveg"
+      },
+      {
+       "n": "UB Special Club Sandwich",
+       "p": 140,
+       "t": "nonveg"
+      },
+      {
+       "n": "Classic Chicken Club Sandwich",
+       "p": 150,
+       "t": "nonveg"
+      },
+      {
+       "n": "UB Special Chicken Sandwich",
+       "p": 150,
+       "t": "nonveg"
+      }
+     ]
+    },
+    {
+     "name": "Indian Gravy",
+     "items": [
+      {
+       "n": "Dal Tadka",
+       "p": 150,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Dal Makhani",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Kadai Sabzi",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Kadai Mushroom",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Butter Masala",
+       "p": 170,
+       "t": "veg"
+      },
+      {
+       "n": "Kadai Paneer Masala",
+       "p": 190,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Tikka Masala",
+       "p": 190,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Lababdar",
+       "p": 190,
+       "t": "veg"
+      },
+      {
+       "n": "Shahi Paneer Masala",
+       "p": 190,
+       "t": "veg"
+      },
+      {
+       "n": "Chicken Tikka Masala",
+       "p": 190,
+       "t": "nonveg"
+      },
+      {
+       "n": "Schezwan Chicken Gravy",
+       "p": 200,
+       "t": "nonveg"
+      },
+      {
+       "n": "Punjabi Chicken Masala",
+       "p": 200,
+       "t": "nonveg"
+      },
+      {
+       "n": "Hyderabadi Chicken Masala",
+       "p": 200,
+       "t": "nonveg"
+      },
+      {
+       "n": "Butter Chicken Masala",
+       "p": 200,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Lababdar",
+       "p": 200,
+       "t": "nonveg"
+      },
+      {
+       "n": "Dhanya Murga Adraki Masala",
+       "p": 200,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Keema Masala",
+       "p": 200,
+       "t": "nonveg"
+      },
+      {
+       "n": "Dahi Muruga",
+       "p": 200,
+       "t": "nonveg"
+      }
+     ]
+    },
+    {
+     "name": "Tandoori",
+     "items": [
+      {
+       "n": "Tandoori Roti",
+       "p": 20,
+       "t": "veg"
+      },
+      {
+       "n": "Butter Tandoori Roti",
+       "p": 25,
+       "t": "veg"
+      },
+      {
+       "n": "Naan",
+       "p": 35,
+       "t": "veg"
+      },
+      {
+       "n": "Butter Naan",
+       "p": 40,
+       "t": "veg"
+      },
+      {
+       "n": "Garlic Naan",
+       "p": 45,
+       "t": "veg"
+      },
+      {
+       "n": "Tandoori Lachha Paratha",
+       "p": 50,
+       "t": "veg"
+      },
+      {
+       "n": "Cheese Garlic Naan",
+       "p": 55,
+       "t": "veg"
+      },
+      {
+       "n": "Tandoori Aloo Paratha",
+       "p": 90,
+       "t": "veg",
+       "pc": 2
+      },
+      {
+       "n": "Paneer Kulcha",
+       "p": 110,
+       "t": "veg",
+       "pc": 2
+      }
+     ]
+    },
+    {
+     "name": "Fries",
+     "items": [
+      {
+       "n": "Classic Salted Fries",
+       "p": 75,
+       "t": "veg"
+      },
+      {
+       "n": "Chilly Flakes Fries",
+       "p": 95,
+       "t": "veg"
+      },
+      {
+       "n": "Peri Peri Fries",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Lemon Masala Fries",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Cheese Fries",
+       "p": 130,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Veg Starters",
+     "items": [
+      {
+       "n": "Veg Crispy Fingers",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Honey Chilly Potato",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Manchurian Dry",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Manchurian Gravy",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Tikka",
+       "p": 170,
+       "t": "veg"
+      },
+      {
+       "n": "Mushroom Chilly Dry",
+       "p": 170,
+       "t": "veg"
+      },
+      {
+       "n": "Mushroom Chilly Gravy",
+       "p": 170,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer 65",
+       "p": 170,
+       "t": "veg"
+      },
+      {
+       "n": "Chilly Paneer Dry",
+       "p": 175,
+       "t": "veg",
+       "pc": 10
+      },
+      {
+       "n": "Paneer Malai Tikka",
+       "p": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Chilly Paneer Gravy",
+       "p": 185,
+       "t": "veg",
+       "pc": 8
+      },
+      {
+       "n": "Paneer Manchurian Gravy",
+       "p": 190,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Non Veg Starters",
+     "items": [
+      {
+       "n": "Chicken Nuggets",
+       "p": 160,
+       "t": "nonveg",
+       "pc": 8
+      },
+      {
+       "n": "Chicken 65",
+       "p": 170,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Wings",
+       "p": 185,
+       "t": "nonveg",
+       "pc": 4
+      },
+      {
+       "n": "Chicken Tikka",
+       "p": 185,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chilly Chicken Dry",
+       "p": 185,
+       "t": "nonveg"
+      },
+      {
+       "n": "Dragon Chicken",
+       "p": 185,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Malai Tikka",
+       "p": 185,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chilly Chicken Gravy",
+       "p": 195,
+       "t": "nonveg"
+      },
+      {
+       "n": "Tandoori Chicken (Half)",
+       "p": 195,
+       "t": "nonveg"
+      },
+      {
+       "n": "Tandoori Chicken (Full)",
+       "p": 420,
+       "t": "nonveg"
+      }
+     ]
+    },
+    {
+     "name": "Egg Varieties",
+     "items": [
+      {
+       "n": "Masala Omelette",
+       "p": 50,
+       "t": "egg"
+      },
+      {
+       "n": "Egg Bhurji",
+       "p": 50,
+       "t": "egg"
+      },
+      {
+       "n": "Bread Omelette",
+       "p": 70,
+       "t": "egg"
+      },
+      {
+       "n": "Cheese Omelette",
+       "p": 70,
+       "t": "egg"
+      }
+     ]
+    },
+    {
+     "name": "Steam Momos",
+     "items": [
+      {
+       "n": "Veg Momos",
+       "p": 90,
+       "t": "veg",
+       "pc": 8
+      },
+      {
+       "n": "Chicken Momos",
+       "p": 120,
+       "t": "nonveg",
+       "pc": 6
+      },
+      {
+       "n": "Paneer Momos",
+       "p": 130,
+       "t": "veg",
+       "pc": 8
+      }
+     ]
+    },
+    {
+     "name": "Soya Chaap",
+     "items": [
+      {
+       "n": "Tandoori Soya Chaap",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Achari Soya Chaap",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Malai Soya Chaap",
+       "p": 170,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Nachos",
+     "items": [
+      {
+       "n": "Veg Mixed Nachos",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Chicken Nachos",
+       "p": 120,
+       "t": "nonveg"
+      }
+     ]
+    },
+    {
+     "name": "Veg Pasta",
+     "items": [
+      {
+       "n": "Penne Alfredo Pasta",
+       "sm": 120,
+       "lg": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Penne Arabiata",
+       "sm": 120,
+       "lg": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Pink Sauce Pasta",
+       "sm": 120,
+       "lg": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Basil Sauce Pasta",
+       "sm": 130,
+       "lg": 190,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Non Veg Pasta",
+     "items": [
+      {
+       "n": "Penne Alfredo Chicken",
+       "sm": 150,
+       "lg": 195,
+       "t": "nonveg"
+      },
+      {
+       "n": "Penne Arabiata Chicken",
+       "sm": 150,
+       "lg": 195,
+       "t": "nonveg"
+      },
+      {
+       "n": "Pink Sauce Chicken Pasta",
+       "sm": 150,
+       "lg": 195,
+       "t": "nonveg"
+      },
+      {
+       "n": "Basil Sauce Chicken Pasta",
+       "sm": 150,
+       "lg": 200,
+       "t": "nonveg"
+      }
+     ]
+    },
+    {
+     "name": "Bakery Items",
+     "items": [
+      {
+       "n": "Veg Turnover",
+       "p": 40,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Plait",
+       "p": 50,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Sub Roll",
+       "p": 50,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Pizza Bun",
+       "p": 50,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Crispy Roll",
+       "p": 50,
+       "t": "veg"
+      },
+      {
+       "n": "Chilly Cheese Plait",
+       "p": 60,
+       "t": "veg"
+      },
+      {
+       "n": "Chicken Turnover",
+       "p": 60,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Pizza Bun",
+       "p": 60,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Sub Roll",
+       "p": 60,
+       "t": "nonveg"
+      }
+     ]
+    },
+    {
+     "name": "Chinese",
+     "items": [
+      {
+       "n": "Veg Noodle",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Fried Rice",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Schezwan Veg Noodle",
+       "p": 140,
+       "t": "veg"
+      },
+      {
+       "n": "Egg Noodle",
+       "p": 140,
+       "t": "egg"
+      },
+      {
+       "n": "Schezwan Veg Fried Rice",
+       "p": 140,
+       "t": "veg"
+      },
+      {
+       "n": "Chicken Noodle",
+       "p": 150,
+       "t": "nonveg"
+      },
+      {
+       "n": "Egg Fried Rice",
+       "p": 150,
+       "t": "egg"
+      },
+      {
+       "n": "Paneer Noodle",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Schezwan Egg Fried Rice",
+       "p": 160,
+       "t": "egg"
+      },
+      {
+       "n": "Paneer Fried Rice",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Schezwan Paneer Noodle",
+       "p": 165,
+       "t": "veg"
+      },
+      {
+       "n": "Schezwan Chicken Noodle",
+       "p": 170,
+       "t": "nonveg"
+      },
+      {
+       "n": "Schezwan Paneer Fried Rice",
+       "p": 170,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Pizza Varieties",
+     "items": [
+      {
+       "n": "Garlic Bread",
+       "p": 90,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Cheese Garlic Bread",
+       "p": 110,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Garlic Bread",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Sweet Corn Pizza",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "UB Special Pizza",
+       "p": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Supreme Pizza",
+       "p": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Classic Margherita Pizza",
+       "p": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Tikka Pizza",
+       "p": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Mushroom Cheese Pizza",
+       "p": 200,
+       "t": "veg"
+      },
+      {
+       "n": "UB Special Non Veg Pizza",
+       "p": 245,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Tikka Pizza",
+       "p": 245,
+       "t": "nonveg"
+      },
+      {
+       "n": "Jalapeno Chicken Pizza",
+       "p": 245,
+       "t": "nonveg"
+      }
+     ]
+    },
+    {
+     "name": "Pastry",
+     "items": [
+      {
+       "n": "Choco Doughnut",
+       "p": 50,
+       "t": "veg"
+      },
+      {
+       "n": "Oreo Pastry",
+       "p": 70,
+       "t": "veg"
+      },
+      {
+       "n": "KitKat Pastry",
+       "p": 70,
+       "t": "veg"
+      },
+      {
+       "n": "Choco Truffle Pastry",
+       "p": 70,
+       "t": "veg"
+      },
+      {
+       "n": "Blue Berry Pastry",
+       "p": 70,
+       "t": "veg"
+      },
+      {
+       "n": "Swiss Roll",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Walnut Brownie",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Walnut Brownie with Ice Cream",
+       "p": 120,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Birthday Cake",
+     "items": [
+      {
+       "n": "Choco Truffle Cake 500g",
+       "p": 500,
+       "t": "veg"
+      },
+      {
+       "n": "Chocolate Cake 500g",
+       "p": 500,
+       "t": "veg"
+      },
+      {
+       "n": "Butterscotch Cake 500g",
+       "p": 500,
+       "t": "veg"
+      },
+      {
+       "n": "Strawberry Cake 500g",
+       "p": 500,
+       "t": "veg"
+      },
+      {
+       "n": "Pineapple Cake 500g",
+       "p": 500,
+       "t": "veg"
+      },
+      {
+       "n": "KitKat Cake 500g",
+       "p": 550,
+       "t": "veg"
+      },
+      {
+       "n": "Oreo Cake 500g",
+       "p": 550,
+       "t": "veg"
+      },
+      {
+       "n": "Pineapple Cake 1kg",
+       "p": 900,
+       "t": "veg"
+      },
+      {
+       "n": "Strawberry Cake 1kg",
+       "p": 900,
+       "t": "veg"
+      },
+      {
+       "n": "Chocolate Cake 1kg",
+       "p": 900,
+       "t": "veg"
+      },
+      {
+       "n": "Butterscotch Cake 1kg",
+       "p": 900,
+       "t": "veg"
+      },
+      {
+       "n": "Choco Truffle Cake 1kg",
+       "p": 900,
+       "t": "veg"
+      },
+      {
+       "n": "KitKat Cake 1kg",
+       "p": 950,
+       "t": "veg"
+      },
+      {
+       "n": "Oreo Cake 1kg",
+       "p": 1000,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Hot Beverages",
+     "items": [
+      {
+       "n": "Ginger Tea",
+       "p": 15,
+       "t": "veg"
+      },
+      {
+       "n": "Coffee",
+       "p": 20,
+       "t": "veg"
+      },
+      {
+       "n": "Double Ginger Tea",
+       "p": 25,
+       "t": "veg"
+      },
+      {
+       "n": "Black Coffee",
+       "p": 30,
+       "t": "veg"
+      },
+      {
+       "n": "Double Coffee",
+       "p": 30,
+       "t": "veg"
+      },
+      {
+       "n": "Hot Chocolate",
+       "p": 50,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Fresh Juice",
+     "items": [
+      {
+       "n": "Lime Mint Cooler",
+       "sm": 50,
+       "lg": 70,
+       "t": "veg"
+      },
+      {
+       "n": "Watermelon Juice",
+       "p": 65,
+       "t": "veg"
+      },
+      {
+       "n": "Orange Juice",
+       "p": 75,
+       "t": "veg"
+      },
+      {
+       "n": "Sweet Lime Juice",
+       "p": 75,
+       "t": "veg"
+      },
+      {
+       "n": "Pineapple Juice",
+       "p": 75,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Cold Beverages",
+     "items": [
+      {
+       "n": "Butterscotch Milkshake",
+       "sm": 60,
+       "lg": 100,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Strawberry Milkshake",
+       "sm": 60,
+       "lg": 100,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Vanilla Milkshake",
+       "sm": 60,
+       "lg": 100,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Chocolate Milkshake",
+       "sm": 60,
+       "lg": 100,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Mango Shake",
+       "sm": 60,
+       "lg": 100,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Cold Coffee",
+       "sm": 60,
+       "lg": 100,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Lemon Ice Tea",
+       "sm": 60,
+       "lg": 100,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Oreo Milkshake",
+       "sm": 70,
+       "lg": 105,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "KitKat Milkshake",
+       "sm": 70,
+       "lg": 105,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Nutella Milkshake",
+       "sm": 70,
+       "lg": 105,
+       "t": "veg",
+       "verify": true
+      }
+     ]
+    },
+    {
+     "name": "Combos",
+     "items": [
+      {
+       "n": "Butter Khichdi",
+       "p": 140,
+       "t": "veg"
+      },
+      {
+       "n": "Dal Rice",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Schezwan Khichdi",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Indian Combo",
+       "p": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Chinese Veg Combo",
+       "p": 200,
+       "t": "veg"
+      },
+      {
+       "n": "Non Veg Combo",
+       "p": 200,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chinese Non Veg Combo",
+       "p": 225,
+       "t": "nonveg"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "mayuri-ab",
+   "name": "Mayuri's (AB-1)",
+   "location": "Academic Block 1",
+   "tagline": "Homely Meals, Happy Feels",
+   "brandColor": "#D9312E",
+   "_note": "Board photographed at the AB-1 outlet. The Special Block outlet shares this menu until its own board is captured; clone into vendor id 'mayuri-sb' and adjust.",
+   "categories": [
+    {
+     "name": "Tea / Coffee",
+     "items": [
+      {
+       "n": "Regular Tea",
+       "p": 20,
+       "t": "veg"
+      },
+      {
+       "n": "Masala Tea",
+       "p": 25,
+       "t": "veg"
+      },
+      {
+       "n": "Regular Coffee",
+       "p": 25,
+       "t": "veg"
+      },
+      {
+       "n": "Lemon Ice Tea",
+       "p": 70,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Mocktails",
+     "items": [
+      {
+       "n": "Mint Mojito",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Green Apple Soda",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Blue Berry",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Seasonal Fruit Juice",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Kiwi Punch",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Mandarin",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Water Melon Mojito",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Cold Drinks",
+       "p": 35,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Shakes",
+     "items": [
+      {
+       "n": "Cold Coffee",
+       "sm": 70,
+       "lg": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Chocolate Shake",
+       "sm": 70,
+       "lg": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Rose Shake",
+       "sm": 90,
+       "lg": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Mango Shake",
+       "sm": 90,
+       "lg": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Oreo Milk Shake",
+       "sm": 90,
+       "lg": 120,
+       "t": "veg"
+      },
+      {
+       "n": "KitKat Milk Shake",
+       "sm": 90,
+       "lg": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Strawberry Shake",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Black Current Shake",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Banana Shake",
+       "p": 100,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Lassi",
+     "items": [
+      {
+       "n": "Sweet Lassi",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Mango Lassi",
+       "p": 100,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Momos / Rolls",
+     "items": [
+      {
+       "n": "Veg Steam Momos",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Fried Momos",
+       "p": 110,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Steam Momos",
+       "p": 110,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Fry Momos",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Kurkura Momos",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Kathi Rolls",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Tikka Rolls",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Mexican Rolls",
+       "p": 140,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Bread Items",
+     "items": [
+      {
+       "n": "Veg Burger",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Hot Dog",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Loaded Sandwich",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Cheese Burger",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Hot Dog",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Paneer Cheese Burger",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Cheese Hot Dog",
+       "p": 120,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Pizza",
+     "items": [
+      {
+       "n": "Farm House Pizza",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Cheese Corn Pizza",
+       "p": 170,
+       "t": "veg"
+      },
+      {
+       "n": "Tandoori Paneer Pizza",
+       "p": 190,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Combos",
+     "items": [
+      {
+       "n": "Chola With Samosa",
+       "p": 50,
+       "t": "veg"
+      },
+      {
+       "n": "Chola Rice",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Makhani Rice",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Chole With Kulcha",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Chola Bhatura",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer With Kulcha",
+       "p": 160,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Samosa",
+     "items": [
+      {
+       "n": "Aloo Mutter Samosa",
+       "p": 25,
+       "t": "veg"
+      },
+      {
+       "n": "Poha",
+       "p": 25,
+       "t": "veg"
+      },
+      {
+       "n": "Sahi Kachori",
+       "p": 30,
+       "t": "veg"
+      },
+      {
+       "n": "Masala Paneer Samosa",
+       "p": 40,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Chaat",
+     "items": [
+      {
+       "n": "Dahi Puri",
+       "p": 50,
+       "t": "veg"
+      },
+      {
+       "n": "Aloo Tikki",
+       "p": 60,
+       "t": "veg"
+      },
+      {
+       "n": "Papdi Chaat",
+       "p": 60,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "South Indian",
+     "items": [
+      {
+       "n": "Dosa Plain",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Idli Sambar",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Thatte Idli",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Thatte Idli With Sambhar",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Masala Dosa",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Corn Cheese Dosa",
+       "p": 140,
+       "t": "veg"
+      },
+      {
+       "n": "Jini Dosa",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Masala Dosa",
+       "p": 150,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Loaded French Fries",
+     "items": [
+      {
+       "n": "Just Fries",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "China Town Fries",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Say Cheese Fries",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Tangy Tango Fries",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Punjabi Bhangra Fries",
+       "p": 110,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Sweets",
+     "items": [
+      {
+       "n": "Gulab Jamun",
+       "p": 25,
+       "t": "veg"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bistro-safal",
+   "name": "Bistro by Safal Cafe",
+   "location": "Special Block",
+   "tagline": "Coffee, Snacks, Good Times",
+   "brandColor": "#B07A3C",
+   "categories": [
+    {
+     "name": "Sides",
+     "items": [
+      {
+       "n": "Classic French Fries",
+       "p": 115,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Peri Peri French Fries",
+       "p": 120,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Potato Wedges (Salsa & Baked Beans)",
+       "p": 120,
+       "t": "veg",
+       "verify": true
+      },
+      {
+       "n": "Chicken Popcorn 150g",
+       "p": 190,
+       "t": "nonveg",
+       "verify": true
+      },
+      {
+       "n": "Jalapeno Cheese Poppers 150g",
+       "p": 190,
+       "t": "veg",
+       "verify": true
+      }
+     ]
+    },
+    {
+     "name": "Breads",
+     "items": [
+      {
+       "n": "Garlic Bread Cheese",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Cheese Stuffed Garlic Bread",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Tandoori Stuffed Garlic Bread",
+       "p": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Makhani Stuffed Garlic Bread",
+       "p": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Chicken Makhani Stuffed Garlic Bread",
+       "p": 180,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Tandoori Stuffed Garlic Bread",
+       "p": 180,
+       "t": "nonveg"
+      }
+     ]
+    },
+    {
+     "name": "Sandwiches / Burgers",
+     "_sizeLabels": {
+      "sm": "Regular",
+      "lg": "With Cheese"
+     },
+     "items": [
+      {
+       "n": "Grilled Veg Sandwich",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Makhani Sandwich",
+       "sm": 145,
+       "lg": 155,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Schezwan Cheese Sandwich",
+       "sm": 155,
+       "lg": 165,
+       "t": "veg"
+      },
+      {
+       "n": "Chicken Makhani Sandwich",
+       "sm": 165,
+       "lg": 175,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Schezwan Cheese Sandwich",
+       "sm": 165,
+       "lg": 175,
+       "t": "nonveg"
+      },
+      {
+       "n": "Classic Veg Burger",
+       "p": 110,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Burger With Cheese",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Classic Chicken Burger",
+       "sm": 150,
+       "lg": 160,
+       "t": "nonveg"
+      },
+      {
+       "n": "Fried Chicken Patty Burger",
+       "sm": 160,
+       "lg": 170,
+       "t": "nonveg"
+      },
+      {
+       "n": "Zinger Paneer Fried Burger",
+       "sm": 160,
+       "lg": 170,
+       "t": "veg"
+      },
+      {
+       "n": "Zinger Fried Chicken Burger",
+       "sm": 170,
+       "lg": 180,
+       "t": "nonveg"
+      }
+     ]
+    },
+    {
+     "name": "Wraps and Rolls",
+     "items": [
+      {
+       "n": "Aloo Schezwan Frankie",
+       "p": 110,
+       "t": "veg"
+      },
+      {
+       "n": "Egg Frankie",
+       "p": 120,
+       "t": "egg"
+      },
+      {
+       "n": "Paneer Roll",
+       "p": 125,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Kathi Roll",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Chilli Frankie",
+       "p": 135,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Schezwan Frankie",
+       "p": 135,
+       "t": "veg"
+      },
+      {
+       "n": "Chicken Chilli Frankie",
+       "p": 140,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Kathi Roll",
+       "p": 150,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Roll",
+       "p": 160,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Tikka Roll",
+       "p": 160,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Seekh Wrap",
+       "p": 180,
+       "t": "nonveg"
+      },
+      {
+       "n": "Fried Chicken Twister",
+       "p": 185,
+       "t": "nonveg"
+      }
+     ]
+    },
+    {
+     "name": "Pizza (7 inch)",
+     "items": [
+      {
+       "n": "Margherita",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Onion Pizza",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Mac n Cheese Pizza",
+       "p": 135,
+       "t": "veg"
+      },
+      {
+       "n": "Corn and Cheese Pizza",
+       "p": 140,
+       "t": "veg"
+      },
+      {
+       "n": "Jalapeno Cheese Pizza",
+       "p": 145,
+       "t": "veg"
+      },
+      {
+       "n": "Three Cheese Pizza",
+       "p": 155,
+       "t": "veg"
+      },
+      {
+       "n": "Farm to Table Pizza",
+       "p": 165,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Makhni Pizza",
+       "p": 175,
+       "t": "veg"
+      },
+      {
+       "n": "Chicken Pepperoni Pizza",
+       "p": 180,
+       "t": "nonveg"
+      },
+      {
+       "n": "Hot n Spicy Seekh Pizza",
+       "p": 180,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Makhni Pizza",
+       "p": 190,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Loaded Pizza",
+       "p": 195,
+       "t": "nonveg"
+      },
+      {
+       "n": "Tandoori Paneer Pizza",
+       "p": 195,
+       "t": "veg"
+      },
+      {
+       "n": "Tandoori Chicken Pizza",
+       "p": 195,
+       "t": "nonveg"
+      }
+     ]
+    },
+    {
+     "name": "Pasta",
+     "_sizeLabels": {
+      "sm": "Veg",
+      "lg": "Chicken"
+     },
+     "items": [
+      {
+       "n": "Chipotle Mac N Cheese",
+       "sm": 160,
+       "lg": 185,
+       "t": "veg"
+      },
+      {
+       "n": "Makhni Mac N Cheese",
+       "sm": 160,
+       "lg": 185,
+       "t": "veg"
+      },
+      {
+       "n": "Tandoori Mac N Cheese",
+       "sm": 160,
+       "lg": 185,
+       "t": "veg"
+      },
+      {
+       "n": "Alfredo Penne / Spaghetti",
+       "sm": 160,
+       "lg": 185,
+       "t": "veg"
+      },
+      {
+       "n": "Arabiata Penne / Spaghetti",
+       "sm": 160,
+       "lg": 185,
+       "t": "veg"
+      },
+      {
+       "n": "Aglio Oglio Pasta",
+       "sm": 170,
+       "lg": 180,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Chinese",
+     "_sizeLabels": {
+      "sm": "Veg",
+      "lg": "Non-Veg"
+     },
+     "items": [
+      {
+       "n": "Veg Saucy Momos (Tandoori / Makhni / Chipotle)",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Saucy Momos (Tandoori / Makhni / Chipotle)",
+       "p": 140,
+       "t": "veg"
+      },
+      {
+       "n": "Chicken Saucy Momos (Tandoori / Makhni / Chipotle)",
+       "p": 140,
+       "t": "nonveg"
+      },
+      {
+       "n": "Noodles",
+       "sm": 120,
+       "lg": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Hakka Noodles",
+       "sm": 120,
+       "lg": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Chilly Garlic Noodles",
+       "sm": 135,
+       "lg": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Schezwan Noodles",
+       "sm": 135,
+       "lg": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Burnt Garlic Noodles",
+       "sm": 150,
+       "lg": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Crispy Noodles",
+       "sm": 150,
+       "lg": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Fried Rice",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Schezwan Fried Rice",
+       "sm": 140,
+       "lg": 170,
+       "t": "veg"
+      },
+      {
+       "n": "Egg Fried Rice",
+       "p": 140,
+       "t": "egg"
+      },
+      {
+       "n": "Paneer Fried Rice",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Chicken Fried Rice",
+       "p": 170,
+       "t": "nonveg"
+      },
+      {
+       "n": "Veg Combi",
+       "p": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Non-Veg Combi",
+       "p": 190,
+       "t": "nonveg"
+      },
+      {
+       "n": "Crispy Corn",
+       "p": 135,
+       "t": "veg"
+      },
+      {
+       "n": "Honey Chilli Potato",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Chilli Paneer",
+       "p": 170,
+       "t": "veg"
+      },
+      {
+       "n": "Chilli Chicken",
+       "p": 190,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken 65",
+       "p": 190,
+       "t": "nonveg"
+      },
+      {
+       "n": "Chicken Lollipop",
+       "p": 200,
+       "t": "nonveg",
+       "pc": 5
+      }
+     ]
+    },
+    {
+     "name": "Dessert",
+     "items": [
+      {
+       "n": "Pudding",
+       "p": 70,
+       "t": "veg"
+      },
+      {
+       "n": "Choco Lava Cake",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Blueberry Muffin",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Choco Chip Muffin",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Pastry",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Assorted Pastries",
+       "p": 95,
+       "t": "veg"
+      },
+      {
+       "n": "Brownie",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Brownie With Ice Cream",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "New York Cheesecake (slice)",
+       "p": 160,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Hot Coffee",
+     "items": [
+      {
+       "n": "Espresso",
+       "p": 55,
+       "t": "veg"
+      },
+      {
+       "n": "Americano",
+       "p": 65,
+       "t": "veg"
+      },
+      {
+       "n": "Cappuccino",
+       "p": 75,
+       "t": "veg"
+      },
+      {
+       "n": "Cafe Latte",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Affogato",
+       "p": 85,
+       "t": "veg"
+      },
+      {
+       "n": "Hot Chocolate",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Cafe Mocha",
+       "p": 110,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Cold Coffee",
+     "items": [
+      {
+       "n": "Iced Americano",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Iced Latte",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Vanilla Latte",
+       "p": 125,
+       "t": "veg"
+      },
+      {
+       "n": "Iced Mocha",
+       "p": 125,
+       "t": "veg"
+      },
+      {
+       "n": "Classic Cold Coffee",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Cold Coffee With Ice Cream",
+       "p": 170,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Shakes & Frappes",
+     "items": [
+      {
+       "n": "Oreo Shake",
+       "p": 140,
+       "t": "veg"
+      },
+      {
+       "n": "Kit Kat Shake",
+       "p": 140,
+       "t": "veg"
+      },
+      {
+       "n": "Caramel Frappe",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Kit-Kat Frappe",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Mango Shake",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Strawberry Shake",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Pineapple Shake",
+       "p": 150,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Mocktails",
+     "items": [
+      {
+       "n": "Fresh Lime (Water / Soda)",
+       "p": 70,
+       "t": "veg"
+      },
+      {
+       "n": "Mint Mojito",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Iced Tea (Lemon / Peach)",
+       "p": 95,
+       "t": "veg"
+      },
+      {
+       "n": "Masala Lemonade",
+       "p": 95,
+       "t": "veg"
+      },
+      {
+       "n": "Orange Banta Soda",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Pink Lemonade",
+       "p": 105,
+       "t": "veg"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "dakshin",
+   "name": "AB's Dakshin",
+   "location": "Special Block",
+   "tagline": "Food for Thought",
+   "brandColor": "#196B45",
+   "categories": [
+    {
+     "name": "Dosa",
+     "items": [
+      {
+       "n": "Plain Dosa",
+       "p": 70,
+       "t": "veg"
+      },
+      {
+       "n": "Masala Dosa",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Ghee Roast Dosa",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Onion Masala Dosa",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Mysore Masala Dosa",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Dosa",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Cheese Masala Dosa",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Podi Dosa",
+       "p": 110,
+       "t": "veg"
+      },
+      {
+       "n": "Set Dosa (3)",
+       "p": 90,
+       "t": "veg",
+       "pc": 3
+      }
+     ]
+    },
+    {
+     "name": "Idli",
+     "items": [
+      {
+       "n": "Idli Sambar (2)",
+       "p": 60,
+       "t": "veg",
+       "pc": 2
+      },
+      {
+       "n": "Ghee Podi Idli (3)",
+       "p": 80,
+       "t": "veg",
+       "pc": 3
+      },
+      {
+       "n": "Thatte Idli",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Rava Idli (2)",
+       "p": 80,
+       "t": "veg",
+       "pc": 2
+      },
+      {
+       "n": "Sambar Dip Idli (4)",
+       "p": 100,
+       "t": "veg",
+       "pc": 4
+      }
+     ]
+    },
+    {
+     "name": "Vada",
+     "items": [
+      {
+       "n": "Medu Vada (2)",
+       "p": 60,
+       "t": "veg",
+       "pc": 2
+      },
+      {
+       "n": "Sambar Vada (2)",
+       "p": 80,
+       "t": "veg",
+       "pc": 2
+      },
+      {
+       "n": "Dahi Vada (2)",
+       "p": 90,
+       "t": "veg",
+       "pc": 2
+      },
+      {
+       "n": "Idli Vada Combo",
+       "p": 100,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Uttapam",
+     "items": [
+      {
+       "n": "Plain Uttapam",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Onion Uttapam",
+       "p": 110,
+       "t": "veg"
+      },
+      {
+       "n": "Tomato Onion Uttapam",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Mixed Veg Uttapam",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Cheese Uttapam",
+       "p": 150,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Rice Meals",
+     "items": [
+      {
+       "n": "Curd Rice",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Lemon Rice",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Sambar Rice",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Bisi Bele Bath",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Tamarind Rice",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Pulao",
+       "sm": 110,
+       "lg": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Curd Rice with Pickle",
+       "p": 90,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Combos",
+     "items": [
+      {
+       "n": "South Thali (Unlimited Sambar)",
+       "p": 180,
+       "t": "veg"
+      },
+      {
+       "n": "Dosa + Filter Coffee",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Idli Vada + Coffee",
+       "p": 140,
+       "t": "veg"
+      },
+      {
+       "n": "Mini Tiffin Platter",
+       "p": 160,
+       "t": "veg"
+      },
+      {
+       "n": "Student Combo (Dosa + Rice)",
+       "p": 150,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Filter Coffee",
+     "items": [
+      {
+       "n": "Filter Coffee",
+       "sm": 40,
+       "lg": 60,
+       "t": "veg"
+      },
+      {
+       "n": "Strong Filter Coffee",
+       "sm": 50,
+       "lg": 70,
+       "t": "veg"
+      },
+      {
+       "n": "Filter Coffee (Less Sugar)",
+       "sm": 40,
+       "lg": 60,
+       "t": "veg"
+      },
+      {
+       "n": "Bella Coffee (Jaggery)",
+       "p": 70,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Beverages",
+     "items": [
+      {
+       "n": "Masala Chai",
+       "p": 25,
+       "t": "veg"
+      },
+      {
+       "n": "Elaichi Tea",
+       "p": 30,
+       "t": "veg"
+      },
+      {
+       "n": "Buttermilk",
+       "p": 40,
+       "t": "veg"
+      },
+      {
+       "n": "Rose Milk",
+       "p": 60,
+       "t": "veg"
+      },
+      {
+       "n": "Badam Milk",
+       "p": 70,
+       "t": "veg"
+      },
+      {
+       "n": "Fresh Lime Soda",
+       "p": 50,
+       "t": "veg"
+      }
+     ]
+    }
+   ],
+   "_todo": "Menu board not yet photographed. Capture it and transcribe into this array using the same shape before the demo."
+  },
+  {
+   "id": "mayuri-special",
+   "name": "Mayuri's (Special Block)",
+   "location": "Special Block",
+   "tagline": "Homely Meals, Happy Feels",
+   "brandColor": "#D9312E",
+   "_note": "Board photographed at the AB-1 outlet. The Special Block outlet shares this menu until its own board is captured; clone into vendor id 'mayuri-sb' and adjust.",
+   "categories": [
+    {
+     "name": "Tea / Coffee",
+     "items": [
+      {
+       "n": "Regular Tea",
+       "p": 20,
+       "t": "veg"
+      },
+      {
+       "n": "Masala Tea",
+       "p": 25,
+       "t": "veg"
+      },
+      {
+       "n": "Regular Coffee",
+       "p": 25,
+       "t": "veg"
+      },
+      {
+       "n": "Lemon Ice Tea",
+       "p": 70,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Mocktails",
+     "items": [
+      {
+       "n": "Mint Mojito",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Green Apple Soda",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Blue Berry",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Seasonal Fruit Juice",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Kiwi Punch",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Mandarin",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Water Melon Mojito",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Cold Drinks",
+       "p": 35,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Shakes",
+     "items": [
+      {
+       "n": "Cold Coffee",
+       "sm": 70,
+       "lg": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Chocolate Shake",
+       "sm": 70,
+       "lg": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Rose Shake",
+       "sm": 90,
+       "lg": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Mango Shake",
+       "sm": 90,
+       "lg": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Oreo Milk Shake",
+       "sm": 90,
+       "lg": 120,
+       "t": "veg"
+      },
+      {
+       "n": "KitKat Milk Shake",
+       "sm": 90,
+       "lg": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Strawberry Shake",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Black Current Shake",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Banana Shake",
+       "p": 100,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Lassi",
+     "items": [
+      {
+       "n": "Sweet Lassi",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Mango Lassi",
+       "p": 100,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Momos / Rolls",
+     "items": [
+      {
+       "n": "Veg Steam Momos",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Fried Momos",
+       "p": 110,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Steam Momos",
+       "p": 110,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Fry Momos",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Kurkura Momos",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Kathi Rolls",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Tikka Rolls",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Mexican Rolls",
+       "p": 140,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Bread Items",
+     "items": [
+      {
+       "n": "Veg Burger",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Hot Dog",
+       "p": 80,
+       "t": "veg"
+      },
+      {
+       "n": "Loaded Sandwich",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Cheese Burger",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Hot Dog",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Veg Paneer Cheese Burger",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Cheese Hot Dog",
+       "p": 120,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Combos",
+     "items": [
+      {
+       "n": "Chola With Samosa",
+       "p": 50,
+       "t": "veg"
+      },
+      {
+       "n": "Chola Rice",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Makhani Rice",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Chole With Kulcha",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Chola Bhatura",
+       "p": 130,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer With Kulcha",
+       "p": 160,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Samosa",
+     "items": [
+      {
+       "n": "Aloo Mutter Samosa",
+       "p": 25,
+       "t": "veg"
+      },
+      {
+       "n": "Poha",
+       "p": 25,
+       "t": "veg"
+      },
+      {
+       "n": "Sahi Kachori",
+       "p": 30,
+       "t": "veg"
+      },
+      {
+       "n": "Masala Paneer Samosa",
+       "p": 40,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Chaat",
+     "items": [
+      {
+       "n": "Dahi Puri",
+       "p": 50,
+       "t": "veg"
+      },
+      {
+       "n": "Aloo Tikki",
+       "p": 60,
+       "t": "veg"
+      },
+      {
+       "n": "Papdi Chaat",
+       "p": 60,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "South Indian",
+     "items": [
+      {
+       "n": "Dosa Plain",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Idli Sambar",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Thatte Idli",
+       "p": 100,
+       "t": "veg"
+      },
+      {
+       "n": "Thatte Idli With Sambhar",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Masala Dosa",
+       "p": 120,
+       "t": "veg"
+      },
+      {
+       "n": "Corn Cheese Dosa",
+       "p": 140,
+       "t": "veg"
+      },
+      {
+       "n": "Jini Dosa",
+       "p": 150,
+       "t": "veg"
+      },
+      {
+       "n": "Paneer Masala Dosa",
+       "p": 150,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Sweets",
+     "items": [
+      {
+       "n": "Gulab Jamun",
+       "p": 25,
+       "t": "veg"
+      }
+     ]
+    },
+    {
+     "name": "Late Hours",
+     "items": [
+      {
+       "n": "Maggi Masala",
+       "p": 60,
+       "t": "veg"
+      },
+      {
+       "n": "Cheese Maggi",
+       "p": 90,
+       "t": "veg"
+      },
+      {
+       "n": "Bread Butter Toast",
+       "p": 50,
+       "t": "veg"
+      },
+      {
+       "n": "Egg Bhurji Pav",
+       "p": 80,
+       "t": "egg"
+      },
+      {
+       "n": "Boiled Eggs (2)",
+       "p": 40,
+       "t": "egg",
+       "pc": 2
+      },
+      {
+       "n": "Midnight Chai",
+       "p": 25,
+       "t": "veg"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
