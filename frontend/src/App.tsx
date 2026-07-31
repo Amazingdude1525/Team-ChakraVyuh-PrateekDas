@@ -76,6 +76,14 @@ class ErrorBoundary extends React.Component<
             <p className="text-sm text-slate-600 leading-relaxed">
               We encountered a brief state sync issue. Tap below to reload your student dashboard cleanly.
             </p>
+            <div className="bg-red-50 p-4 rounded-xl text-left overflow-auto max-h-48 border border-red-100">
+              <p className="text-sm font-bold text-red-600 mb-1">
+                {this.state.error?.message || 'Unknown Error'}
+              </p>
+              <pre className="text-[10px] text-red-500 font-mono whitespace-pre-wrap">
+                {this.state.error?.stack || 'No stack trace available'}
+              </pre>
+            </div>
             <button
               type="button"
               onClick={() => {
