@@ -71,7 +71,7 @@ class ErrorBoundary extends React.Component<
               ⚠️
             </span>
             <h1 className="font-display text-2xl font-bold text-slate-900">
-              Workspace Refreshed
+              Workspace Synced (v3)
             </h1>
             <p className="text-sm text-slate-600 leading-relaxed">
               We encountered a brief state sync issue. Tap below to reload your student dashboard cleanly.
@@ -80,7 +80,7 @@ class ErrorBoundary extends React.Component<
               type="button"
               onClick={() => {
                 localStorage.clear();
-                window.location.href = '/app';
+                window.location.href = `/app?clear=${Date.now()}`;
               }}
               className="w-full py-3 px-6 rounded-full bg-[#D95D39] text-white font-bold text-sm hover:bg-[#c44e2b] transition-colors shadow-lg"
             >
