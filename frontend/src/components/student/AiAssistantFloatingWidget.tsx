@@ -115,7 +115,7 @@ export function AiAssistantFloatingWidget() {
   return (
     <>
       {/* --------------------------------- FLOATING BOT ICON & SPEECH BUBBLE --------------------------------- */}
-      <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end select-none">
+      <div className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-40 flex flex-col items-end select-none">
         {/* Speech Bubble Above Bot (Does NOT overlap bot icon) */}
         <AnimatePresence>
           {!bubbleDismissed && !drawerOpen && (
@@ -187,7 +187,7 @@ export function AiAssistantFloatingWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 15, scale: 0.94 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className="fixed bottom-22 right-5 z-50 w-[calc(100vw-2.5rem)] sm:w-[380px] h-[500px] rounded-3xl bg-white/95 backdrop-blur-2xl shadow-2xl border border-amber-300/80 flex flex-col overflow-hidden"
+            className="fixed bottom-22 md:bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] h-[500px] max-h-[calc(100vh-120px)] rounded-3xl bg-white/95 backdrop-blur-2xl shadow-2xl border border-amber-300/80 flex flex-col overflow-hidden"
           >
             {/* Drawer Header */}
             <div className="p-4 bg-gradient-to-r from-slate-900 via-slate-800 to-[#0F172A] text-white flex items-center justify-between">

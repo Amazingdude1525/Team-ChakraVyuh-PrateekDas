@@ -43,6 +43,7 @@ import StaffDiscounts from './pages/staff/Discounts';
 import StaffOrderDetail from './pages/staff/OrderDetail';
 
 import { CartGuardProvider } from './components/student/CartGuard';
+import { AiAssistantFloatingWidget } from './components/student/AiAssistantFloatingWidget';
 
 import React, { useEffect } from 'react';
 
@@ -118,6 +119,7 @@ function StudentGuard() {
   return (
     <CartGuardProvider>
       <Outlet />
+      <AiAssistantFloatingWidget />
     </CartGuardProvider>
   );
 }

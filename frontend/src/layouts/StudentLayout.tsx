@@ -50,7 +50,7 @@ export default function StudentLayout() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* ------------------------------------------------------- top bar */}
-      <header className="sticky top-0 z-30 glass-warm border-b border-[var(--color-beige)]">
+      <header className="sticky top-0 z-30 bg-[var(--color-cream)]/95 backdrop-blur-md border-b border-[var(--color-beige)] shadow-xs">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6 h-15 py-3 flex items-center justify-between gap-4">
           <Link to="/app" className="flex items-center gap-2.5 shrink-0">
             <span className="w-8 h-8 rounded-[9px] bg-[var(--color-saffron)] flex items-center justify-center">
