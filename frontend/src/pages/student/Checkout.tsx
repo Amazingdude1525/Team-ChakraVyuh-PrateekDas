@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { motion, AnimatePresence } from 'motion/react';
 import {
   ArrowLeft,
   Banknote,
   Check,
-  CheckCircle2,
   Clock3,
   CreditCard,
-  ShieldCheck,
+  Smartphone,
   Store,
 } from 'lucide-react';
 import {
@@ -69,9 +67,6 @@ export default function Checkout() {
   const [note, setNote] = useState(cartNote);
   const [accepted, setAccepted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [placing, setPlacing] = useState(false);
-
-  // Local state
   const [placing, setPlacing] = useState(false);
 
   if (cart.length === 0) return <Navigate to="/app/cart" replace />;
