@@ -96,25 +96,14 @@ class ErrorBoundary extends React.Component<
 
 /** Route guard: automatically initializes student session for prototype demo safely. */
 function StudentGuard() {
-  const student = useStore((s) => s.student);
+  const studentStore = useStore((s) => s.student);
   const loginStudent = useStore((s) => s.loginStudent);
 
   useEffect(() => {
-    if (!student) {
+    if (!studentStore) {
       loginStudent();
     }
-  }, [student, loginStudent]);
-
-  if (!student) {
-    return (
-      <div className="min-h-screen bg-[var(--color-ivory)] flex items-center justify-center p-6 text-center">
-        <div className="space-y-3">
-          <div className="w-10 h-10 border-4 border-[#D95D39] border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-sm font-medium text-slate-600">Loading student workspace...</p>
-        </div>
-      </div>
-    );
-  }
+  }, [studentStore, loginStudent]);
 
   return <Outlet />;
 }

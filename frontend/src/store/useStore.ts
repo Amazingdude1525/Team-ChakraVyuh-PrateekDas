@@ -24,7 +24,7 @@ import { SEED_MENU_ITEMS } from '../data/menu';
 import { makeDemoNotifications, makeDemoOrders, makeDemoReviews } from '../data/demo';
 import { pickupWindow, uid, waitMinutes } from '../utils';
 
-const STORE_VERSION = 1;
+const STORE_VERSION = 2;
 
 export const DEMO_STUDENT: StudentProfile = {
   name: 'Prateek Das',
