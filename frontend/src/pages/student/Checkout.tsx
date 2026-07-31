@@ -9,11 +9,8 @@ import {
   CheckCircle2,
   Clock3,
   CreditCard,
-  Lock,
   ShieldCheck,
-  Smartphone,
   Store,
-  X,
 } from 'lucide-react';
 import {
   Button,
@@ -74,11 +71,8 @@ export default function Checkout() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [placing, setPlacing] = useState(false);
 
-  // Razorpay Gateway Simulation State
-  const [showRazorpay, setShowRazorpay] = useState(false);
-  const [rzpPaying, setRzpPaying] = useState(false);
-  const [rzpSuccess, setRzpSuccess] = useState(false);
-  const [upiVpa, setUpiVpa] = useState('student@okaxis');
+  // Local state
+  const [placing, setPlacing] = useState(false);
 
   if (cart.length === 0) return <Navigate to="/app/cart" replace />;
 
@@ -99,8 +93,7 @@ export default function Checkout() {
     if (Object.keys(next).length > 0) return;
 
     if (method === 'upi' || method === 'card') {
-      // Open Razorpay SDK Simulation Modal
-      setShowRazorpay(true);
+      openRazorpay();
     } else {
       // Direct Counter Payment
       executeOrderPlacement('Counter Payment');
@@ -124,17 +117,49 @@ export default function Checkout() {
     }, 600);
   }
 
-  function handleRazorpaySuccess() {
-    setRzpPaying(true);
-    setTimeout(() => {
-      setRzpPaying(false);
-      setRzpSuccess(true);
-      setTimeout(() => {
-        setShowRazorpay(false);
-        setRzpSuccess(false);
-        executeOrderPlacement('Razorpay Paid');
-      }, 1000);
-    }, 1200);
+  function openRazorpay() {
+    setPlacing(true);
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => {
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_TJgVCoHO4BjKnJ',
+        amount: totals.total * 100, // in paise
+        currency: 'INR',
+        name: 'VITeBites',
+        description: 'Campus Food Order',
+        prefill: {
+          name: name.trim() || student?.name,
+          contact: phone.trim() || student?.phone,
+          email: student?.email,
+        },
+        theme: {
+          color: '#0C2340',
+        },
+        handler: function (response: any) {
+          // Success callback
+          executeOrderPlacement(`RZP_${response.razorpay_payment_id}`);
+        },
+        modal: {
+          ondismiss: function () {
+            setPlacing(false);
+          },
+        },
+      };
+      
+      // @ts-ignore
+      const rzp = new window.Razorpay(options);
+      rzp.on('payment.failed', function (response: any) {
+        setPlacing(false);
+        toast.error(response.error.description || 'Payment failed');
+      });
+      rzp.open();
+    };
+    script.onerror = () => {
+      setPlacing(false);
+      toast.error('Failed to load Razorpay SDK');
+    };
+    document.body.appendChild(script);
   }
 
   return (
@@ -427,132 +452,8 @@ export default function Checkout() {
         </div>
       </form>
 
-      {/* ---------------------------------- RAZORPAY PAYMENT GATEWAY MODAL SIMULATION ---------------------------------- */}
-      <AnimatePresence>
-        {showRazorpay && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              className="w-full max-w-[420px] rounded-3xl bg-white shadow-2xl overflow-hidden border border-slate-200"
-            >
-              {/* Razorpay Brand Header */}
-              <div className="bg-[#0C2340] text-white p-5 flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center text-white font-bold text-xs">
-                    RZP
-                  </div>
-                  <div>
-                    <span className="text-xs text-blue-200 uppercase font-bold tracking-wider block">
-                      Razorpay Checkout
-                    </span>
-                    <span className="text-sm font-bold block text-white">
-                      VITeBites Campus Food
-                    </span>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setShowRazorpay(false)}
-                  className="text-slate-400 hover:text-white p-1 rounded-full hover:bg-white/10"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-
-              {/* Amount & Merchant Info */}
-              <div className="p-5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                <div>
-                  <span className="text-xs text-slate-500 block">Total Amount to Pay</span>
-                  <span className="text-2xl font-black text-slate-900">{rupees(totals.total)}</span>
-                </div>
-                <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold flex items-center gap-1">
-                  <ShieldCheck size={13} /> 256-Bit SSL Encrypted
-                </span>
-              </div>
-
-              {/* Payment Processing or Success Screen */}
-              <div className="p-6">
-                {rzpSuccess ? (
-                  <motion.div
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    className="text-center py-6 space-y-3"
-                  >
-                    <CheckCircle2 size={56} className="text-emerald-500 mx-auto animate-bounce" />
-                    <h3 className="text-xl font-bold text-slate-900">Payment Successful!</h3>
-                    <p className="text-xs text-slate-500">Transaction ID: RZP_PAY_{Math.floor(100000 + Math.random() * 900000)}</p>
-                  </motion.div>
-                ) : rzpPaying ? (
-                  <div className="text-center py-8 space-y-4">
-                    <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
-                    <p className="text-sm font-semibold text-slate-800">Processing payment with bank...</p>
-                    <p className="text-xs text-slate-400">Do not refresh or close this window.</p>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {method === 'upi' ? (
-                      <div className="space-y-3">
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                          Select UPI App / Virtual Payment Address
-                        </label>
-
-                        <div className="grid grid-cols-3 gap-2">
-                          {['GPay', 'PhonePe', 'Paytm'].map((app) => (
-                            <button
-                              key={app}
-                              type="button"
-                              onClick={() => setUpiVpa(`student@${app.toLowerCase()}`)}
-                              className="p-2.5 rounded-xl border border-slate-200 text-center font-bold text-xs hover:border-blue-600 hover:bg-blue-50 transition-colors"
-                            >
-                              {app}
-                            </button>
-                          ))}
-                        </div>
-
-                        <div>
-                          <input
-                            value={upiVpa}
-                            onChange={(e) => setUpiVpa(e.target.value)}
-                            placeholder="Enter UPI ID (e.g. name@upi)"
-                            className="w-full h-11 px-3.5 rounded-xl border border-slate-300 text-sm font-medium focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="space-y-3">
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                          Card Details Simulation
-                        </label>
-                        <input
-                          defaultValue="4532 •••• •••• 8892"
-                          className="w-full h-11 px-3.5 rounded-xl border border-slate-300 text-sm font-mono"
-                        />
-                        <div className="grid grid-cols-2 gap-2">
-                          <input defaultValue="12 / 28" className="h-11 px-3.5 rounded-xl border border-slate-300 text-sm font-mono" />
-                          <input defaultValue="892" type="password" className="h-11 px-3.5 rounded-xl border border-slate-300 text-sm font-mono" />
-                        </div>
-                      </div>
-                    )}
-
-                    <Button
-                      fullWidth
-                      size="lg"
-                      onClick={handleRazorpaySuccess}
-                      className="bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 rounded-xl mt-4"
-                    >
-                      <Lock size={16} className="mr-1" />
-                      Pay {rupees(totals.total)} Now
-                    </Button>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+        </div>
+      </form>
     </div>
   );
 }
