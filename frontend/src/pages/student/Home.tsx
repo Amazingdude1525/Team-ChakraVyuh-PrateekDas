@@ -424,7 +424,10 @@ export default function StudentHome() {
         <Button
           variant="secondary"
           className="shrink-0"
-          onClick={() => navigate(`/app/cafe/${openBranches[0]?.id ?? branches[0].id}`)}
+          onClick={() => {
+            const targetId = openBranches[0]?.id ?? branches[0]?.id;
+            if (targetId) navigate(`/app/cafe/${targetId}`);
+          }}
         >
           Start one
           <ArrowRight size={15} />
@@ -432,11 +435,13 @@ export default function StudentHome() {
       </Card>
 
       {/* Wait-estimate footnote — the judging criterion this whole app turns on */}
-      <p className="text-[11.5px] text-[var(--color-ink-soft)] text-center leading-relaxed max-w-[520px] mx-auto pb-2">
-        Wait estimates combine each counter's base preparation time with how many orders are
-        currently in its queue. Right now that ranges from ~{Math.min(...branches.map((b) => waitMinutes(b)))} to
-        ~{Math.max(...branches.map((b) => waitMinutes(b)))} minutes across campus.
-      </p>
+      {branches.length > 0 && (
+        <p className="text-[11.5px] text-[var(--color-ink-soft)] text-center leading-relaxed max-w-[520px] mx-auto pb-2">
+          Wait estimates combine each counter's base preparation time with how many orders are
+          currently in its queue. Right now that ranges from ~{Math.min(...branches.map((b) => waitMinutes(b)))} to
+          ~{Math.max(...branches.map((b) => waitMinutes(b)))} minutes across campus.
+        </p>
+      )}
     </div>
   );
 }
