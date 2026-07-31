@@ -13,7 +13,6 @@ import {
 import { useCartTotals } from '../hooks';
 import { useStore } from '../store/useStore';
 import { cx, rupees } from '../utils';
-import { CartGuardProvider } from '../components/student/CartGuard';
 
 /**
  * Shell for every signed-in student screen: a compact top bar on desktop,
@@ -49,9 +48,8 @@ export default function StudentLayout() {
     itemCount > 0 && !['/app/cart', '/app/checkout'].includes(location.pathname);
 
   return (
-    <CartGuardProvider>
-      <div className="min-h-screen flex flex-col">
-        {/* ------------------------------------------------------- top bar */}
+    <div className="min-h-screen flex flex-col">
+      {/* ------------------------------------------------------- top bar */}
       <header className="sticky top-0 z-30 glass-warm border-b border-[var(--color-beige)]">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6 h-15 py-3 flex items-center justify-between gap-4">
           <Link to="/app" className="flex items-center gap-2.5 shrink-0">
@@ -205,6 +203,5 @@ export default function StudentLayout() {
         </div>
       </nav>
     </div>
-    </CartGuardProvider>
   );
 }

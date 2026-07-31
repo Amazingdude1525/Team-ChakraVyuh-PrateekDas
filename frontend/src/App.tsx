@@ -42,6 +42,8 @@ import StaffInsights from './pages/staff/Insights';
 import StaffDiscounts from './pages/staff/Discounts';
 import StaffOrderDetail from './pages/staff/OrderDetail';
 
+import { CartGuardProvider } from './components/student/CartGuard';
+
 import React, { useEffect } from 'react';
 
 /** Global React Error Boundary to catch any unexpected runtime errors and prevent blank screens. */
@@ -113,7 +115,11 @@ function StudentGuard() {
     }
   }, [studentStore, loginStudent]);
 
-  return <Outlet />;
+  return (
+    <CartGuardProvider>
+      <Outlet />
+    </CartGuardProvider>
+  );
 }
 
 /** Staff guard: redirects to vendor-login if no staff session. */
