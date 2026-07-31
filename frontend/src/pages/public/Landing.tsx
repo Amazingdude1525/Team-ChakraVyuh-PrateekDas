@@ -284,10 +284,10 @@ function ZomatoStyleAppFeatures() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="w-[300px] sm:w-[340px] h-[480px] rounded-t-[44px] bg-slate-950 p-3 pb-0 shadow-[0_-15px_40px_rgba(226,55,68,0.2)] border-4 border-b-0 border-slate-800 relative z-20 overflow-hidden"
+            className="w-[300px] sm:w-[340px] rounded-[44px] bg-slate-950 p-3 shadow-2xl border-4 border-slate-800 relative z-20 overflow-hidden"
           >
             {/* Phone Screen Mock */}
-            <div className="w-full h-full rounded-t-[36px] bg-[var(--color-ivory)] overflow-hidden flex flex-col justify-start p-5 text-left border border-slate-700/50 relative">
+            <div className="w-full rounded-[36px] bg-[var(--color-ivory)] overflow-hidden flex flex-col justify-start p-5 text-left border border-slate-700/50 relative">
               {/* Notch */}
               <div className="w-20 h-4 bg-slate-950 rounded-b-xl mx-auto mb-4" />
 
@@ -319,13 +319,7 @@ function ZomatoStyleAppFeatures() {
                   Pickup slot: 1:15 PM – 1:20 PM
                 </div>
               </motion.div>
-
-              {/* Soft Glowing Blur Fade-Out at Bottom of Phone Screen */}
-              <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent pointer-events-none" />
             </div>
-
-            {/* Outer Bottom Blur Glow Fade */}
-            <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#FFF0F3] via-[#FFF0F3]/80 to-transparent pointer-events-none z-30" />
           </motion.div>
 
           {/* Surrounding Floating Feature Cards */}

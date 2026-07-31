@@ -242,7 +242,7 @@ export function CampusScene({
                 )}
               </AnimatePresence>
 
-              {/* Clean Transparent Hotspot (Soft Glow on Hover, NO TEXT OVERLAYING REAL SIGNS) */}
+              {/* Clean Transparent Hotspot (Subtle Pinch of Warm Light Glow on Hover) */}
               <button
                 type="button"
                 onClick={() => onSelect(shop.id)}
@@ -250,15 +250,15 @@ export function CampusScene({
                 className={cx(
                   'w-full h-[90%] rounded-2xl p-3 sm:p-4 text-left flex flex-col justify-between transition-all duration-300 group cursor-pointer relative overflow-hidden',
                   isHovered
-                    ? 'bg-amber-300/15 shadow-[0_0_50px_rgba(243,167,18,0.45)] scale-[1.02]'
-                    : 'bg-transparent hover:scale-[1.01]',
+                    ? 'bg-amber-300/5 shadow-[0_0_24px_rgba(243,167,18,0.22)] scale-[1.01]'
+                    : 'bg-transparent hover:scale-[1.005]',
                 )}
               >
-                {/* Storefront Warm Light Glow Effect on Hover */}
+                {/* Storefront Warm Light Glow Effect on Hover (Ultra-subtle pinch) */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   style={{
-                    background: `radial-gradient(circle at 50% 100%, ${shop.brandColor}66 0%, transparent 70%)`,
+                    background: `radial-gradient(circle at 50% 100%, ${shop.brandColor}25 0%, transparent 75%)`,
                   }}
                 />
 

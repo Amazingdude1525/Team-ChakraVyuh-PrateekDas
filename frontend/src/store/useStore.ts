@@ -174,8 +174,8 @@ export const useStore = create<StoreState>()(
       version: STORE_VERSION,
       ...initialData(),
 
-      role: null,
-      student: null,
+      role: 'student',
+      student: DEMO_STUDENT,
       vendor: null,
 
       cart: [],

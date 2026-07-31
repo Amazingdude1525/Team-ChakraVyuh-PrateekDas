@@ -54,7 +54,7 @@ export default function CafeMenu() {
   const items = useMenuItems(cafeId);
 
   const student = useStore((s) => s.student);
-  const favorites = useStore((s) => s.favorites.branches);
+  const favorites = useStore((s) => s.favorites?.branches ?? []);
   const toggleFavoriteBranch = useStore((s) => s.toggleFavoriteBranch);
   const createGroupOrder = useStore((s) => s.createGroupOrder);
   const { itemCount, total, branchId: cartBranchId } = useCartTotals();

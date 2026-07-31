@@ -32,10 +32,10 @@ export default function StudentLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const student = useStore((s) => s.student);
-  const notifications = useStore((s) => s.notifications);
+  const notifications = useStore((s) => s.notifications ?? []);
   const { itemCount, total } = useCartTotals();
 
-  const unread = notifications.filter((n) => !n.read).length;
+  const unread = (notifications ?? []).filter((n) => !n.read).length;
   const initials = (student?.name ?? 'VB')
     .split(' ')
     .map((p) => p[0])

@@ -37,7 +37,12 @@ export default function Profile() {
   const [confirmSignOut, setConfirmSignOut] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
 
-  if (!student) return null;
+  const loginStudent = useStore((s) => s.loginStudent);
+
+  if (!student) {
+    loginStudent();
+    return null;
+  }
 
   const initials = student.name
     .split(' ')

@@ -31,13 +31,13 @@ export default function Favorites() {
   const [tab, setTab] = useState<Tab>('dishes');
 
   const savedItems = useMemo(
-    () => favorites.items.map((id) => allItems.find((i) => i.id === id)).filter(Boolean),
-    [favorites.items, allItems],
+    () => (favorites?.items ?? []).map((id) => allItems.find((i) => i.id === id)).filter(Boolean),
+    [favorites?.items, allItems],
   );
 
   const savedBranches = useMemo(
-    () => branches.filter((b) => favorites.branches.includes(b.id)),
-    [branches, favorites.branches],
+    () => branches.filter((b) => (favorites?.branches ?? []).includes(b.id)),
+    [branches, favorites?.branches],
   );
 
   return (

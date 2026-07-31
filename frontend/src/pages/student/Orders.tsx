@@ -17,7 +17,7 @@ export default function Orders() {
   const branches = useBranches();
   const allItems = useMenuItems();
 
-  const orders = useStore((s) => s.orders);
+  const orders = useStore((s) => s.orders ?? []);
   const student = useStore((s) => s.student);
   const addToCart = useStore((s) => s.addToCart);
   const clearCart = useStore((s) => s.clearCart);

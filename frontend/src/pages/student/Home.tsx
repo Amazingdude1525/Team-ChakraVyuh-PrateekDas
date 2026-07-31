@@ -56,8 +56,8 @@ export default function StudentHome() {
   const discounts = useActiveDiscounts();
 
   const student = useStore((s) => s.student);
-  const orders = useStore((s) => s.orders);
-  const favorites = useStore((s) => s.favorites);
+  const orders = useStore((s) => s.orders ?? []);
+  const favorites = useStore((s) => s.favorites ?? { items: [], branches: [] });
   const vegOnly = useStore((s) => s.student?.dietPreference === 'veg');
   const updateStudent = useStore((s) => s.updateStudent);
 
@@ -129,8 +129,8 @@ export default function StudentHome() {
   }, [pastOrders, allItems]);
 
   const favoriteBranches = useMemo(
-    () => branches.filter((b) => favorites.branches.includes(b.id)),
-    [branches, favorites.branches],
+    () => branches.filter((b) => favorites?.branches?.includes(b.id)),
+    [branches, favorites?.branches],
   );
 
   return (

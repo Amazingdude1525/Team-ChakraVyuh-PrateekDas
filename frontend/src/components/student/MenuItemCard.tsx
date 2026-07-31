@@ -34,7 +34,7 @@ export function MenuItemCard({ item, compact }: { item: MenuItem; compact?: bool
   const { requestAdd } = useCartGuard();
   const cart = useStore((s) => s.cart);
   const setQuantity = useStore((s) => s.setQuantity);
-  const favorites = useStore((s) => s.favorites.items);
+  const favorites = useStore((s) => s.favorites?.items ?? []);
   const toggleFavorite = useStore((s) => s.toggleFavoriteItem);
   const originalPrice = useOriginalPrice(item.id);
 
