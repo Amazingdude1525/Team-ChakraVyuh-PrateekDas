@@ -5,7 +5,7 @@ export const VENDOR_NAMES = {
   MAYURI_AB: 'Mayuri (AB)',
   MAYURI_SB: 'Mayuri (Special Block)',
   UNDERBELLY: 'UnderBelly (UB)',
-  DAKSHIN: 'Dakshin',
+  DAKSHIN: 'AB Dakshin',
   BISTRO: 'Bistro Cafe by Safal',
 } as const;
 
@@ -13,7 +13,7 @@ export const VENDOR_LOCATIONS: Record<string, string> = {
   'Mayuri (AB)': 'Academic Block',
   'Mayuri (Special Block)': 'Special Block',
   'UnderBelly (UB)': 'Near AB1',
-  'Dakshin': 'Special Block',
+  'AB Dakshin': 'Special Block',
   'Bistro Cafe by Safal': 'Special Block',
 };
 
@@ -137,7 +137,7 @@ const VENDOR_PREFIXES: Record<string, string> = {
   'Mayuri (AB)': 'MAB',
   'Mayuri (Special Block)': 'MSB',
   'UnderBelly (UB)': 'UB',
-  'Dakshin': 'DK',
+  'AB Dakshin': 'DK',
   'Bistro Cafe by Safal': 'BSF',
 };
 

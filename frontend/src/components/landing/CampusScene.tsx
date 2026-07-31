@@ -33,7 +33,7 @@ export const SCENE_STOREFRONTS: SceneStorefront[] = [
   },
   {
     id: 'dakshin',
-    name: "AB's Dakshin",
+    name: 'AB Dakshin',
     sub: 'South Indian Kitchen',
     brandColor: '#196B45',
     description: 'Authentic crispy dosas, idlis, vada & piping hot filter coffee.',

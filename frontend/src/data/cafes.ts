@@ -26,7 +26,7 @@ export const CAFES: Cafe[] = [
   },
   {
     id: 'dakshin',
-    name: "AB's Dakshin",
+    name: 'AB Dakshin',
     tagline: 'Food for thought',
     brandColor: '#196B45',
     description:
@@ -99,8 +99,8 @@ export const BRANCHES: CafeBranch[] = [
   {
     id: 'dakshin',
     cafeId: 'dakshin',
-    name: "AB's Dakshin",
-    shortName: 'Dakshin',
+    name: 'AB Dakshin',
+    shortName: 'AB Dakshin',
     location: 'Special Block, food court',
     opensAt: '07:30',
     closesAt: '21:00',

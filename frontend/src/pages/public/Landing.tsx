@@ -311,7 +311,7 @@ function ZomatoStyleAppFeatures() {
                   <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold tracking-wider uppercase">
                     ● Order Preparing
                   </span>
-                  <h4 className="text-[17px] font-bold text-slate-900 mt-2">AB's Dakshin</h4>
+                  <h4 className="text-[17px] font-bold text-slate-900 mt-2">AB Dakshin</h4>
                   <p className="text-[12.5px] text-slate-500 font-medium">Masala Dosa + Filter Coffee</p>
                 </div>
 
