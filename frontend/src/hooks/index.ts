@@ -10,9 +10,9 @@ import type { CafeBranch, MenuCategory, MenuItem } from '../types';
  * is felt immediately on the student side.
  */
 export function useBranches(): CafeBranch[] {
-  const overrides = useStore((s) => s.branchOverrides);
+  const overrides = useStore((s) => s.branchOverrides ?? {});
   return useMemo(
-    () => BRANCHES.map((b) => ({ ...b, ...overrides[b.id] })),
+    () => BRANCHES.map((b) => ({ ...b, ...(overrides?.[b.id] ?? {}) })),
     [overrides],
   );
 }
@@ -35,19 +35,21 @@ export function useBranch(branchId: string | undefined): CafeBranch {
  * cart suggestions and the assistant all read from.
  */
 export function useMenuItems(branchId?: string): MenuItem[] {
-  const overrides = useStore((s) => s.menuOverrides);
-  const custom = useStore((s) => s.customItems);
-  const deleted = useStore((s) => s.deletedItemIds);
-  const discounts = useStore((s) => s.discounts);
+  const overrides = useStore((s) => s.menuOverrides ?? {});
+  const custom = useStore((s) => s.customItems ?? []);
+  const deleted = useStore((s) => s.deletedItemIds ?? []);
+  const discounts = useStore((s) => s.discounts ?? []);
 
   return useMemo(() => {
-    const deletedSet = new Set(deleted);
+    const deletedSet = new Set(deleted ?? []);
     const activeDiscounts = new Map(
-      discounts.filter((d) => d.active && new Date(d.endsAt) > new Date()).map((d) => [d.itemId, d]),
+      (discounts ?? [])
+        .filter((d) => d && d.active && new Date(d.endsAt) > new Date())
+        .map((d) => [d.itemId, d]),
     );
 
-    const merged = [...SEED_MENU_ITEMS, ...custom]
-      .filter((i) => !deletedSet.has(i.id))
+    const merged = [...SEED_MENU_ITEMS, ...(custom ?? [])]
+      .filter((i) => i && !deletedSet.has(i.id))
       .filter((i) => !branchId || i.branchId === branchId)
       .map((i) => {
         const withOverride = overrides[i.id] ? { ...i, ...overrides[i.id] } : i;
@@ -57,7 +59,7 @@ export function useMenuItems(branchId?: string): MenuItem[] {
         // the same number in the menu, the cart and the receipt.
         return {
           ...withOverride,
-          variants: withOverride.variants.map((v) => ({
+          variants: (withOverride.variants ?? []).map((v) => ({
             ...v,
             price: Math.round(v.price * (1 - discount.percent / 100)),
           })),
@@ -70,13 +72,13 @@ export function useMenuItems(branchId?: string): MenuItem[] {
 }
 
 export function useCategories(branchId: string | undefined): MenuCategory[] {
-  const custom = useStore((s) => s.customItems);
+  const custom = useStore((s) => s.customItems ?? []);
   return useMemo(() => {
     if (!branchId) return [];
     const seeded = SEED_CATEGORIES.filter((c) => c.branchId === branchId);
     // Staff can file a new item under a category name that doesn't exist yet.
-    const extra = custom
-      .filter((i) => i.branchId === branchId && !seeded.some((c) => c.id === i.categoryId))
+    const extra = (custom ?? [])
+      .filter((i) => i && i.branchId === branchId && !seeded.some((c) => c.id === i.categoryId))
       .map<MenuCategory>((i, idx) => ({
         id: i.categoryId,
         branchId,
@@ -90,10 +92,10 @@ export function useCategories(branchId: string | undefined): MenuCategory[] {
 
 /** Original (pre-discount) price, used to render the struck-through figure. */
 export function useOriginalPrice(itemId: string): number | null {
-  const discounts = useStore((s) => s.discounts);
+  const discounts = useStore((s) => s.discounts ?? []);
   return useMemo(() => {
-    const active = discounts.find(
-      (d) => d.itemId === itemId && d.active && new Date(d.endsAt) > new Date(),
+    const active = (discounts ?? []).find(
+      (d) => d && d.itemId === itemId && d.active && new Date(d.endsAt) > new Date(),
     );
     if (!active) return null;
     const seed = SEED_MENU_ITEMS.find((i) => i.id === itemId);
@@ -102,19 +104,19 @@ export function useOriginalPrice(itemId: string): number | null {
 }
 
 export function useActiveDiscounts() {
-  const discounts = useStore((s) => s.discounts);
+  const discounts = useStore((s) => s.discounts ?? []);
   const [, tick] = useState(0);
   // Discounts expire on a clock, so re-evaluate every 15 seconds.
   useEffect(() => {
     const t = setInterval(() => tick((n) => n + 1), 15000);
     return () => clearInterval(t);
   }, []);
-  return discounts.filter((d) => d.active && new Date(d.endsAt) > new Date());
+  return (discounts ?? []).filter((d) => d && d.active && new Date(d.endsAt) > new Date());
 }
 
 /** Cart totals with the coupon and tax lines the checkout screen itemises. */
 export function useCartTotals() {
-  const cart = useStore((s) => s.cart);
+  const cart = useStore((s) => s.cart ?? []);
   const coupon = useStore((s) => s.coupon);
 
   return useMemo(() => {
