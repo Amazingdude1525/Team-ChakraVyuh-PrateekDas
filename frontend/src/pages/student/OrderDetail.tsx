@@ -40,7 +40,7 @@ export default function OrderDetail() {
   const navigate = useNavigate();
   useTick(15000); // keeps "x min ago" honest
 
-  const order = useStore((s) => s.orders.find((o) => o.id === orderId));
+  const order = useStore((s) => (s.orders ?? []).find((o) => o.id === orderId));
   const branch = useBranch(order?.branchId);
   const setOrderStatus = useStore((s) => s.setOrderStatus);
   const markHeadingOver = useStore((s) => s.markHeadingOver);

@@ -42,14 +42,80 @@ import StaffInsights from './pages/staff/Insights';
 import StaffDiscounts from './pages/staff/Discounts';
 import StaffOrderDetail from './pages/staff/OrderDetail';
 
-/** Route guard: automatically initializes student session for prototype demo. */
+import React, { useEffect } from 'react';
+
+/** Global React Error Boundary to catch any unexpected runtime errors and prevent blank screens. */
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean; error: Error | null }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('VITeBites ErrorBoundary caught an error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-[var(--color-ivory)] flex flex-col items-center justify-center p-6 text-center">
+          <div className="max-w-md w-full p-8 bg-white rounded-3xl shadow-xl border border-rose-100 space-y-4">
+            <span className="w-14 h-14 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto text-2xl font-bold">
+              ⚠️
+            </span>
+            <h1 className="font-display text-2xl font-bold text-slate-900">
+              Workspace Refreshed
+            </h1>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              We encountered a brief state sync issue. Tap below to reload your student dashboard cleanly.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                localStorage.clear();
+                window.location.href = '/app';
+              }}
+              className="w-full py-3 px-6 rounded-full bg-[#D95D39] text-white font-bold text-sm hover:bg-[#c44e2b] transition-colors shadow-lg"
+            >
+              Reload Dashboard
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+/** Route guard: automatically initializes student session for prototype demo safely. */
 function StudentGuard() {
   const student = useStore((s) => s.student);
   const loginStudent = useStore((s) => s.loginStudent);
 
+  useEffect(() => {
+    if (!student) {
+      loginStudent();
+    }
+  }, [student, loginStudent]);
+
   if (!student) {
-    loginStudent();
+    return (
+      <div className="min-h-screen bg-[var(--color-ivory)] flex items-center justify-center p-6 text-center">
+        <div className="space-y-3">
+          <div className="w-10 h-10 border-4 border-[#D95D39] border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-sm font-medium text-slate-600">Loading student workspace...</p>
+        </div>
+      </div>
+    );
   }
+
   return <Outlet />;
 }
 
@@ -124,22 +190,24 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AppRoutes />
-      <Toaster
-        position="top-center"
-        toastOptions={{
-          duration: 3000,
-          style: {
-            background: 'var(--color-charcoal)',
-            color: 'var(--color-cream)',
-            borderRadius: '12px',
-            fontSize: '14px',
-            fontWeight: '500',
-            fontFamily: 'var(--font-sans)',
-          },
-        }}
-      />
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AppRoutes />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            duration: 3000,
+            style: {
+              background: 'var(--color-charcoal)',
+              color: 'var(--color-cream)',
+              borderRadius: '12px',
+              fontSize: '14px',
+              fontWeight: '500',
+              fontFamily: 'var(--font-sans)',
+            },
+          }}
+        />
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 }

@@ -16,7 +16,7 @@ import NotFound from '../public/NotFound';
 export default function OrderConfirmed() {
   const { orderId } = useParams<{ orderId: string }>();
   const navigate = useNavigate();
-  const order = useStore((s) => s.orders.find((o) => o.id === orderId));
+  const order = useStore((s) => (s.orders ?? []).find((o) => o.id === orderId));
   const branch = useBranch(order?.branchId);
 
   // Landing here directly with a stale id should not show a broken shell.
