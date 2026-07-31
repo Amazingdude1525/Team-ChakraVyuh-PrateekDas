@@ -680,6 +680,10 @@ export const useStore = create<StoreState>()(
     {
       name: 'vitebites-prototype',
       version: STORE_VERSION,
+      merge: (persistedState, currentState) => ({
+        ...currentState,
+        ...((persistedState as Record<string, unknown>) ?? {}),
+      }),
     },
   ),
 );
