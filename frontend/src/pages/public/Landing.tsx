@@ -15,24 +15,50 @@ import { Button, Card, Chip, CrowdChip, Stars } from '../../components/ui/primit
 import { Drawer, Sheet } from '../../components/ui/Overlay';
 import { useBranches } from '../../hooks';
 import { getCafe } from '../../data/cafes';
-import { crowdLevel, isBranchOpen, waitMinutes } from '../../utils';
+import { crowdLevel, cx, isBranchOpen, waitMinutes } from '../../utils';
 
 /* ---------------------------------- Dynamic Glassmorphic Morphing Navbar ---------------------------------- */
 
 function DynamicNavbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
 
   useEffect(() => {
     function handleScroll() {
-      if (window.scrollY > 35) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 35);
     }
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    const sectionIds = ['cafes', 'zomato-showcase', 'app-features'];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-25% 0px -45% 0px', threshold: 0.1 },
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
   }, []);
+
+  function scrollToSection(e: React.MouseEvent<HTMLAnchorElement>, id: string) {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 
   return (
     <header
@@ -52,28 +78,46 @@ function DynamicNavbar() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1 text-[13.5px] font-semibold">
+        <nav className="hidden md:flex items-center gap-1.5 text-[13.5px] font-semibold">
           <a
             href="#cafes"
-            className="px-4 py-2 rounded-full text-white/90 hover:text-white hover:bg-white/20 transition-colors"
+            onClick={(e) => scrollToSection(e, 'cafes')}
+            className={cx(
+              'px-4 py-2 rounded-full transition-all duration-300',
+              activeSection === 'cafes'
+                ? 'bg-amber-400 text-slate-950 font-bold shadow-lg scale-105'
+                : 'text-white/85 hover:text-white hover:bg-white/20',
+            )}
           >
             Cafes
           </a>
           <a
             href="#zomato-showcase"
-            className="px-4 py-2 rounded-full text-white/90 hover:text-white hover:bg-white/20 transition-colors"
+            onClick={(e) => scrollToSection(e, 'zomato-showcase')}
+            className={cx(
+              'px-4 py-2 rounded-full transition-all duration-300',
+              activeSection === 'zomato-showcase'
+                ? 'bg-amber-400 text-slate-950 font-bold shadow-lg scale-105'
+                : 'text-white/85 hover:text-white hover:bg-white/20',
+            )}
           >
             Why VITeBites
           </a>
           <a
             href="#app-features"
-            className="px-4 py-2 rounded-full text-white/90 hover:text-white hover:bg-white/20 transition-colors"
+            onClick={(e) => scrollToSection(e, 'app-features')}
+            className={cx(
+              'px-4 py-2 rounded-full transition-all duration-300',
+              activeSection === 'app-features'
+                ? 'bg-amber-400 text-slate-950 font-bold shadow-lg scale-105'
+                : 'text-white/85 hover:text-white hover:bg-white/20',
+            )}
           >
             Features
           </a>
           <Link
             to="/about"
-            className="px-4 py-2 rounded-full text-white/90 hover:text-white hover:bg-white/20 transition-colors"
+            className="px-4 py-2 rounded-full text-white/85 hover:text-white hover:bg-white/20 transition-colors"
           >
             About &amp; Architecture
           </Link>
