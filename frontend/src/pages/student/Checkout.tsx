@@ -451,9 +451,6 @@ export default function Checkout() {
           </Card>
         </div>
       </form>
-
-        </div>
-      </form>
     </div>
   );
 }
