@@ -17,9 +17,16 @@ export function useBranches(): CafeBranch[] {
   );
 }
 
-export function useBranch(branchId: string | undefined): CafeBranch | undefined {
+export function useBranch(branchId: string | undefined): CafeBranch {
   const branches = useBranches();
-  return useMemo(() => branches.find((b) => b.id === branchId), [branches, branchId]);
+  return useMemo(() => {
+    if (!branchId) return branches[0];
+    const found =
+      branches.find((b) => b.id === branchId) ||
+      branches.find((b) => b.cafeId === branchId) ||
+      branches.find((b) => b.id.includes(branchId) || branchId.includes(b.id));
+    return found || branches[0];
+  }, [branches, branchId]);
 }
 
 /**

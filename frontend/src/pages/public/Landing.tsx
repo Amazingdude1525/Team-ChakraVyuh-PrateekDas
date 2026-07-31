@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import {
@@ -17,43 +17,63 @@ import { useBranches } from '../../hooks';
 import { getCafe } from '../../data/cafes';
 import { crowdLevel, isBranchOpen, waitMinutes } from '../../utils';
 
-/* ---------------------------------- Floating Glassmorphic Navbar ---------------------------------- */
+/* ---------------------------------- Dynamic Glassmorphic Morphing Navbar ---------------------------------- */
 
-function Navbar() {
+function DynamicNavbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    function handleScroll() {
+      if (window.scrollY > 35) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    }
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-[1180px]">
-      <div className="h-16 px-5 sm:px-6 rounded-2xl backdrop-blur-xl bg-white/75 border border-white/50 shadow-2xl flex items-center justify-between gap-4">
+    <header
+      className={`fixed z-50 transition-all duration-500 ease-out ${
+        scrolled
+          ? 'top-0 left-0 w-full rounded-none backdrop-blur-2xl bg-slate-950/92 border-b border-slate-800 text-white shadow-2xl py-3 px-6'
+          : 'top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2.5rem)] max-w-[1080px] rounded-full backdrop-blur-2xl bg-white/20 border border-white/35 text-white shadow-2xl py-3 px-6'
+      }`}
+    >
+      <div className="max-w-[1180px] mx-auto flex items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-2.5 shrink-0">
-          <span className="w-9 h-9 rounded-xl bg-[var(--color-saffron)] flex items-center justify-center shadow-md">
+          <span className="w-9 h-9 rounded-full bg-[var(--color-saffron)] flex items-center justify-center shadow-md">
             <UtensilsCrossed size={18} className="text-[var(--color-charcoal)]" />
           </span>
-          <span className="font-display text-[22px] leading-none tracking-tight text-[#1E293B]">
-            VIT<span className="text-[#D95D39]">eBites</span>
+          <span className="font-display text-[22px] leading-none tracking-tight text-white drop-shadow-md">
+            VIT<span className="text-[var(--color-saffron)] font-black">eBites</span>
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1 text-[13.5px] font-medium">
+        <nav className="hidden md:flex items-center gap-1 text-[13.5px] font-semibold">
           <a
             href="#cafes"
-            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100/70 transition-colors"
+            className="px-4 py-2 rounded-full text-white/90 hover:text-white hover:bg-white/20 transition-colors"
           >
             Cafes
           </a>
           <a
             href="#zomato-showcase"
-            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100/70 transition-colors"
+            className="px-4 py-2 rounded-full text-white/90 hover:text-white hover:bg-white/20 transition-colors"
           >
             Why VITeBites
           </a>
           <a
             href="#app-features"
-            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100/70 transition-colors"
+            className="px-4 py-2 rounded-full text-white/90 hover:text-white hover:bg-white/20 transition-colors"
           >
             Features
           </a>
           <Link
             to="/about"
-            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100/70 transition-colors"
+            className="px-4 py-2 rounded-full text-white/90 hover:text-white hover:bg-white/20 transition-colors"
           >
             About &amp; Architecture
           </Link>
@@ -61,13 +81,13 @@ function Navbar() {
 
         <div className="flex items-center gap-2.5 shrink-0">
           <Link to="/vendor-login" className="hidden sm:block">
-            <Button variant="secondary" size="sm" className="rounded-xl border-slate-200">
+            <Button variant="secondary" size="sm" className="rounded-full border-white/35 bg-white/10 text-white hover:bg-white/25">
               <Store size={15} />
               Cafe staff
             </Button>
           </Link>
           <Link to="/choose-role">
-            <Button size="sm" className="rounded-xl bg-[#D95D39] hover:bg-[#c44e2b] text-white shadow-md">
+            <Button size="sm" className="rounded-full bg-[#D95D39] hover:bg-[#c44e2b] text-white shadow-lg border border-rose-400/40">
               Order ahead
               <ArrowRight size={15} />
             </Button>
@@ -78,14 +98,14 @@ function Navbar() {
   );
 }
 
-/* ------------------------------------------------ Zomato-Style Showcase ------------------------------------------------ */
+/* ------------------------------------------------ Zomato-Style Showcase (ZERO OVERLAPPING) ------------------------------------------------ */
 
 function ZomatoStyleShowcase() {
   return (
-    <section id="zomato-showcase" className="relative py-20 sm:py-28 bg-white overflow-hidden border-b border-[var(--color-beige)]">
+    <section id="zomato-showcase" className="relative pt-28 pb-20 sm:pt-36 sm:pb-28 bg-white overflow-hidden border-b border-[var(--color-beige)]">
       {/* Decorative Organic Curved Lines */}
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none opacity-25"
+        className="absolute inset-0 w-full h-full pointer-events-none opacity-20"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -103,12 +123,12 @@ function ZomatoStyleShowcase() {
         />
       </svg>
 
-      {/* Floating 3D Food Items */}
-      <div className="absolute inset-0 max-w-[1280px] mx-auto pointer-events-none z-10 hidden md:block">
+      {/* Floating 3D Food Items (Positioned far out on the outer sides so they NEVER overlap central cards or text) */}
+      <div className="absolute inset-0 max-w-[1380px] mx-auto pointer-events-none z-10 hidden xl:block">
         <motion.div
-          animate={{ y: [0, -14, 0] }}
+          animate={{ y: [0, -12, 0] }}
           transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute left-[6%] top-[14%] bg-white p-3.5 rounded-2xl shadow-xl border border-rose-100 flex items-center gap-3"
+          className="absolute left-[3%] top-[18%] bg-white p-3.5 rounded-2xl shadow-lg border border-rose-100 flex items-center gap-3"
         >
           <span className="text-3xl">🍛</span>
           <div>
@@ -118,38 +138,14 @@ function ZomatoStyleShowcase() {
         </motion.div>
 
         <motion.div
-          animate={{ y: [0, 16, 0] }}
+          animate={{ y: [0, 14, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-          className="absolute right-[8%] top-[12%] bg-white p-3.5 rounded-2xl shadow-xl border border-rose-100 flex items-center gap-3"
+          className="absolute right-[3%] top-[18%] bg-white p-3.5 rounded-2xl shadow-lg border border-rose-100 flex items-center gap-3"
         >
           <span className="text-3xl">🥟</span>
           <div>
             <p className="text-[12px] font-bold text-slate-800">Steamed Momos</p>
             <p className="text-[10px] text-amber-600 font-semibold">UnderBelly</p>
-          </div>
-        </motion.div>
-
-        <motion.div
-          animate={{ y: [0, -15, 0] }}
-          transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          className="absolute right-[10%] bottom-[16%] bg-white p-3.5 rounded-2xl shadow-xl border border-rose-100 flex items-center gap-3"
-        >
-          <span className="text-3xl">🍕</span>
-          <div>
-            <p className="text-[12px] font-bold text-slate-800">Woodfire Pizza</p>
-            <p className="text-[10px] text-rose-600 font-semibold">Bistro by Safal</p>
-          </div>
-        </motion.div>
-
-        <motion.div
-          animate={{ y: [0, 14, 0] }}
-          transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-          className="absolute left-[8%] bottom-[18%] bg-white p-3.5 rounded-2xl shadow-xl border border-rose-100 flex items-center gap-3"
-        >
-          <span className="text-3xl">☕</span>
-          <div>
-            <p className="text-[12px] font-bold text-slate-800">Filter Kaapi</p>
-            <p className="text-[10px] text-emerald-700 font-semibold">AB's Dakshin</p>
           </div>
         </motion.div>
       </div>
@@ -187,13 +183,13 @@ function ZomatoStyleShowcase() {
           across 5 campus counters with zero queue delay.
         </motion.p>
 
-        {/* Floating Stats Card */}
+        {/* Clean Central Stats Card (Zero Overlap with Food Items) */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="mt-12 p-6 sm:p-8 rounded-3xl bg-[#0F172A] text-white shadow-2xl grid grid-cols-1 sm:grid-cols-3 gap-6 divide-y sm:divide-y-0 sm:divide-x divide-slate-800"
+          className="mt-14 p-6 sm:p-8 rounded-3xl bg-[#0F172A] text-white shadow-2xl grid grid-cols-1 sm:grid-cols-3 gap-6 divide-y sm:divide-y-0 sm:divide-x divide-slate-800"
         >
           <div className="pt-4 sm:pt-0 sm:px-4 text-center">
             <div className="text-3xl sm:text-4xl font-black text-amber-400">5 Counters</div>
@@ -213,11 +209,11 @@ function ZomatoStyleShowcase() {
   );
 }
 
-/* ------------------------------------------- Zomato-Style App Feature Grid ------------------------------------------- */
+/* ------------------------------------------- Smartphone Feature Showcase with Soft Glowing Gradient Cutoff ------------------------------------------- */
 
 function ZomatoStyleAppFeatures() {
   return (
-    <section id="app-features" className="py-20 sm:py-28 bg-[#FFF0F3] border-b border-rose-100 overflow-hidden">
+    <section id="app-features" className="pt-24 pb-20 sm:pt-32 sm:pb-28 bg-[#FFF0F3] border-b border-rose-100 overflow-hidden relative">
       <div className="max-w-[1180px] mx-auto px-4 sm:px-6 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 15 }}
@@ -237,17 +233,17 @@ function ZomatoStyleAppFeatures() {
           Packed with features designed for VIT Bhopal students — from veg modes to group ordering.
         </motion.p>
 
-        {/* Smartphone Mockup Showcase with Animated Pop-Up Token Card */}
+        {/* Smartphone Mockup Showcase with Glowing Blur Bottom Gradient */}
         <div className="mt-14 relative flex justify-center items-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="w-[300px] sm:w-[340px] h-[460px] rounded-t-[42px] bg-slate-950 p-3 pb-0 shadow-2xl border-4 border-b-0 border-slate-800 relative z-20 overflow-hidden"
+            className="w-[300px] sm:w-[340px] h-[480px] rounded-t-[44px] bg-slate-950 p-3 pb-0 shadow-[0_-15px_40px_rgba(226,55,68,0.2)] border-4 border-b-0 border-slate-800 relative z-20 overflow-hidden"
           >
             {/* Phone Screen Mock */}
-            <div className="w-full h-full rounded-t-[34px] bg-[var(--color-ivory)] overflow-hidden flex flex-col justify-start p-5 text-left border border-slate-700/50 relative">
+            <div className="w-full h-full rounded-t-[36px] bg-[var(--color-ivory)] overflow-hidden flex flex-col justify-start p-5 text-left border border-slate-700/50 relative">
               {/* Notch */}
               <div className="w-20 h-4 bg-slate-950 rounded-b-xl mx-auto mb-4" />
 
@@ -279,7 +275,13 @@ function ZomatoStyleAppFeatures() {
                   Pickup slot: 1:15 PM – 1:20 PM
                 </div>
               </motion.div>
+
+              {/* Soft Glowing Blur Fade-Out at Bottom of Phone Screen */}
+              <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent pointer-events-none" />
             </div>
+
+            {/* Outer Bottom Blur Glow Fade */}
+            <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#FFF0F3] via-[#FFF0F3]/80 to-transparent pointer-events-none z-30" />
           </motion.div>
 
           {/* Surrounding Floating Feature Cards */}
@@ -287,7 +289,7 @@ function ZomatoStyleAppFeatures() {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute left-[12%] top-[10%] bg-white p-4 rounded-2xl shadow-xl border border-rose-100 flex items-center gap-3 text-left w-52"
+              className="absolute left-[10%] top-[10%] bg-white p-4 rounded-2xl shadow-xl border border-rose-100 flex items-center gap-3 text-left w-52"
             >
               <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
                 🥗
@@ -301,7 +303,7 @@ function ZomatoStyleAppFeatures() {
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute left-[10%] bottom-[22%] bg-white p-4 rounded-2xl shadow-xl border border-rose-100 flex items-center gap-3 text-left w-56"
+              className="absolute left-[8%] bottom-[22%] bg-white p-4 rounded-2xl shadow-xl border border-rose-100 flex items-center gap-3 text-left w-56"
             >
               <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
                 👥
@@ -315,7 +317,7 @@ function ZomatoStyleAppFeatures() {
             <motion.div
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-              className="absolute right-[12%] top-[12%] bg-white p-4 rounded-2xl shadow-xl border border-rose-100 flex items-center gap-3 text-left w-52"
+              className="absolute right-[10%] top-[12%] bg-white p-4 rounded-2xl shadow-xl border border-rose-100 flex items-center gap-3 text-left w-52"
             >
               <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold">
                 ⚡
@@ -329,7 +331,7 @@ function ZomatoStyleAppFeatures() {
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 4.7, repeat: Infinity, ease: 'easeInOut', delay: 1.8 }}
-              className="absolute right-[10%] bottom-[20%] bg-white p-4 rounded-2xl shadow-xl border border-rose-100 flex items-center gap-3 text-left w-56"
+              className="absolute right-[8%] bottom-[20%] bg-white p-4 rounded-2xl shadow-xl border border-rose-100 flex items-center gap-3 text-left w-56"
             >
               <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold">
                 🎫
@@ -356,7 +358,7 @@ function ZomatoDarkFooter() {
       <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pb-10 border-b border-slate-800">
           <Link to="/" className="flex items-center gap-3">
-            <span className="w-10 h-10 rounded-xl bg-[#D95D39] text-white flex items-center justify-center shadow-lg font-bold text-xl">
+            <span className="w-10 h-10 rounded-full bg-[#D95D39] text-white flex items-center justify-center shadow-lg font-bold text-xl">
               V
             </span>
             <span className="font-display text-3xl font-black text-white tracking-tight">
@@ -409,7 +411,7 @@ function ZomatoDarkFooter() {
                 </Link>
               </li>
               <li>
-                <Link to="/app/assistant" className="hover:text-rose-400 transition-colors">
+                <Link to="/about" className="hover:text-rose-400 transition-colors">
                   AI Menu Assistant
                 </Link>
               </li>
@@ -502,8 +504,8 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-[var(--color-ivory)]">
-      {/* 1. Floating Glassmorphic Navbar */}
-      <Navbar />
+      {/* 1. Dynamic Glassmorphic Morphing Navbar (Top Rounded Pill -> Full Width Rectangle on Scroll) */}
+      <DynamicNavbar />
 
       {/* 2. FIRST VIEW: Full-Bleed Edge-to-Edge Photorealistic Campus Image Hero */}
       <section className="relative w-full pt-0">
@@ -511,7 +513,7 @@ export default function Landing() {
       </section>
 
       {/* 3. Hero Text Header Positioned Directly BELOW the Campus Photo */}
-      <section className="py-12 sm:py-16 bg-gradient-to-b from-amber-50/50 via-[var(--color-cream)] to-white border-b border-[var(--color-beige)] text-center">
+      <section className="py-14 sm:py-20 bg-gradient-to-b from-slate-900 via-[#0F172A] to-slate-950 text-white text-center">
         <div className="max-w-[840px] mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -519,7 +521,7 @@ export default function Landing() {
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 mb-4"
           >
-            <Chip tone="saffron" className="shadow-sm border border-[var(--color-saffron)]/40 px-3.5 py-1">
+            <Chip tone="saffron" className="shadow-md bg-amber-400/10 border border-amber-400/40 text-amber-300 px-4 py-1 rounded-full">
               <MapPin size={13} className="text-[#D95D39]" />
               VIT Bhopal · campus pickup only
             </Chip>
@@ -530,10 +532,10 @@ export default function Landing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="font-display text-[clamp(32px,5.5vw,60px)] leading-[1.05] text-[#1E293B] tracking-tight"
+            className="font-display text-[clamp(34px,5.8vw,64px)] leading-[1.05] text-white tracking-tight"
           >
             Five counters.{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D95D39] via-[#F3A712] to-[#A92F34]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-[#D95D39]">
               One queue you never stand in.
             </span>
           </motion.h1>
@@ -543,7 +545,7 @@ export default function Landing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15, duration: 0.5 }}
-            className="mt-4 text-[16px] sm:text-[18px] leading-relaxed text-slate-600 max-w-[640px] mx-auto"
+            className="mt-5 text-[17px] sm:text-[19px] leading-relaxed text-slate-300 max-w-[660px] mx-auto"
           >
             Order ahead from any campus cafe, get a token and a five-minute pickup window, and
             collect it from the counter when it is ready.
@@ -554,13 +556,13 @@ export default function Landing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-4"
+            className="mt-9 flex flex-wrap items-center justify-center gap-4"
           >
-            <Button size="lg" onClick={() => navigate('/choose-role')} className="shadow-warm-lg hover:scale-105 transition-transform bg-[#D95D39] text-white">
+            <Button size="lg" onClick={() => navigate('/choose-role')} className="shadow-2xl hover:scale-105 transition-transform bg-[#D95D39] text-white rounded-full px-7">
               Explore cafes
               <ArrowRight size={18} />
             </Button>
-            <Button size="lg" variant="secondary" onClick={() => navigate('/vendor-login')} className="hover:scale-105 transition-transform border-slate-300">
+            <Button size="lg" variant="secondary" onClick={() => navigate('/vendor-login')} className="hover:scale-105 transition-transform border-slate-700 bg-white/10 text-white rounded-full px-7">
               <Store size={17} />
               Cafe staff login
             </Button>
@@ -598,11 +600,11 @@ export default function Landing() {
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.45, delay: i * 0.05 }}
               >
-                <Card className="p-5 h-full flex flex-col hover:shadow-warm-lg transition-shadow">
+                <Card className="p-5 h-full flex flex-col hover:shadow-warm-lg transition-shadow bg-white rounded-2xl border border-slate-200">
                   <div className="flex items-start gap-3 mb-3">
                     <span
                       aria-hidden
-                      className="w-11 h-11 rounded-[12px] flex items-center justify-center shrink-0 font-display text-[17px] text-white"
+                      className="w-11 h-11 rounded-[12px] flex items-center justify-center shrink-0 font-display text-[17px] text-white shadow-md"
                       style={{ background: cafe?.brandColor ?? 'var(--color-saffron)' }}
                     >
                       {branch.shortName.slice(0, 1)}
@@ -633,7 +635,7 @@ export default function Landing() {
                   <Button
                     variant="secondary"
                     fullWidth
-                    className="mt-4"
+                    className="mt-4 rounded-xl"
                     onClick={() => setPreviewBranchId(branch.id)}
                   >
                     View details
@@ -656,7 +658,7 @@ export default function Landing() {
         title={previewBranch?.name}
         footer={
           previewBranch && (
-            <Button fullWidth size="lg" onClick={() => goToMenu(previewBranch.id)}>
+            <Button fullWidth size="lg" onClick={() => goToMenu(previewBranch.id)} className="bg-[#D95D39] text-white">
               View menu
               <ArrowRight size={16} />
             </Button>
@@ -666,7 +668,7 @@ export default function Landing() {
         {previewBranch && (
           <div className="p-5 space-y-5">
             <div
-              className="h-28 rounded-[14px] flex items-end p-4 arch-top"
+              className="h-28 rounded-[14px] flex items-end p-4 arch-top shadow-md"
               style={{
                 background: `linear-gradient(140deg, ${getCafe(previewBranch.cafeId)?.brandColor ?? '#F3A712'} 0%, #4a3a24 130%)`,
               }}
@@ -725,7 +727,7 @@ export default function Landing() {
         </div>
       </Sheet>
 
-      {/* 10. Floating AI Assistant Widget */}
+      {/* 10. Floating AI Assistant Widget & Pop-Up Mini Drawer */}
       <AiAssistantFloatingWidget />
     </div>
   );
